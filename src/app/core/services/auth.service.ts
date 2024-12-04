@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthData } from '../../features/auth/models';
-import { map, Observable } from 'rxjs';
+import { map, catchError, Observable, of } from 'rxjs';
 import { User } from '../../features/dashboard/users/models';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +12,6 @@ import { selectAutheticatedUser } from '../../store/selectors/auth.selector';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   public authUser$: Observable<User | null>;
-
   private baseURL = environment.apiBaseURL;
 
   constructor(
@@ -44,27 +43,41 @@ export class AuthService {
           if (user) {
             return user;
           } else {
-            throw new Error('Los datos son invalidos');
+            throw new Error('Los datos son inválidos');
           }
+        }),
+        catchError((error) => {
+          console.error('Error en login:', error);
+          throw new Error('Los datos son inválidos');
         })
       );
   }
 
-  logout() {
+  logout(): void {
     this.store.dispatch(AuthActions.unsetAuthenticatedUser());
     localStorage.removeItem('token');
     this.router.navigate(['auth', 'login']);
   }
 
   verifyToken(): Observable<boolean> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.store.dispatch(AuthActions.unsetAuthenticatedUser());
+      return of(false);
+    }
+
     return this.httpClient
-      .get<User[]>(
-        `${this.baseURL}/users?token=${localStorage.getItem('token')}`
-      )
+      .get<User[]>(`${this.baseURL}/users?token=${token}`)
       .pipe(
         map((users) => {
           const user = this.handleAuthentication(users);
-          return !!user;
+          return !!user; // Devuelve true si hay un usuario autenticado
+        }),
+        catchError((error) => {
+          console.error('Error verificando token:', error);
+          this.store.dispatch(AuthActions.unsetAuthenticatedUser());
+          return of(false);
         })
       );
   }

@@ -1,53 +1,47 @@
 <div class="m-4">
   <div class="row">
     <div class="col-12">
-      <!-- Botón para agregar un nuevo curso -->
-      <button mat-fab extended (click)="openModal()">
+      <button mat-fab extended (click)="openDialog()">
         <mat-icon>add</mat-icon> Nuevo Curso
       </button>
-
       <h1 appTitles class="mt-4">Lista de Cursos</h1>
       <mat-divider></mat-divider>
-
-      <!-- Indicador de carga -->
-      <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-
-      <!-- Tabla de cursos -->
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataCursos" class="mat-elevation-z8 my-4">
+        
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <th mat-header-cell *matHeaderCellDef> ID </th>
           <td mat-cell *matCellDef="let curso">{{ curso.id }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let curso">{{ curso.name }}</td>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let curso">{{ curso.nombre }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="startDate">
-          <th mat-header-cell *matHeaderCellDef>Fecha de Inicio</th>
-          <td mat-cell *matCellDef="let curso">{{ curso.startDate | date }}</td>
+        <ng-container matColumnDef="modalidad">
+          <th mat-header-cell *matHeaderCellDef> Modalidad </th>
+          <td mat-cell *matCellDef="let curso">{{ curso.modalidad }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="endDate">
-          <th mat-header-cell *matHeaderCellDef>Fecha de Fin</th>
-          <td mat-cell *matCellDef="let curso">{{ curso.endDate | date }}</td>
+        <ng-container matColumnDef="profesor">
+          <th mat-header-cell *matHeaderCellDef> Profesor </th>
+          <td mat-cell *matCellDef="let curso">{{ curso.profesor }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let curso">
-            <button mat-icon-button color="primary" (click)="openModal(curso)">
+            <button mat-icon-button (click)="openDialog(curso)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="onDelete(curso.id)">
+            <button mat-icon-button (click)="deleteCurso(curso.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="['id', 'nombre', 'modalidad', 'profesor', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id', 'nombre', 'modalidad', 'profesor', 'acciones'];"></tr>
       </table>
     </div>
   </div>

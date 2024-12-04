@@ -1,21 +1,29 @@
-<h2 mat-dialog-title>{{ data.editingCurso ? 'Editar Curso' : 'Nuevo Curso' }}</h2>
-<mat-dialog-content>
-  <form [formGroup]="cursoForm">
-    <mat-form-field appearance="fill">
+<h1 mat-dialog-title appTitles>
+  {{ data ? 'Editar Curso' : 'Crear Curso' }}
+</h1>
+<mat-divider class="pb-3"></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="cursoForm" (ngSubmit)="onSave()">
+    <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name" />
+      <input matInput formControlName="nombre" required>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Fecha de Inicio</mat-label>
-      <input matInput formControlName="startDate" type="date" />
+    
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Modalidad</mat-label>
+      <mat-select formControlName="modalidad" required>
+        <mat-option value="Diurno">Diurno</mat-option>
+        <mat-option value="Vespertino">Vespertino</mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Fecha de Fin</mat-label>
-      <input matInput formControlName="endDate" type="date" />
+    
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Profesor</mat-label>
+      <input matInput formControlName="profesor" required>
     </mat-form-field>
   </form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
+</div>
+<div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button color="primary" (click)="onSave()">Guardar</button>
-</mat-dialog-actions>
+  <button (click)="onSave()" mat-flat-button color="primary" [disabled]="cursoForm.invalid">Guardar</button>
+</div>

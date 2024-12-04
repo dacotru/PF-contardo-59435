@@ -1,56 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Curso } from './models';
-import * as CursosSelectors from './store/cursos.selectors';
-import * as CursosActions from './store/cursos.actions';
+import { CursosService } from '../../../core/services/cursos.service';
 import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
+import { Curso } from './models';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
-  styleUrls: ['./cursos.component.scss'],
+  styleUrls: ['./cursos.component.scss']
 })
 export class CursosComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'actions'];
-  dataSource: MatTableDataSource<Curso> = new MatTableDataSource<Curso>();
-  isLoading$: Observable<boolean>;
+  dataCursos: Curso[] = [];
 
-  constructor(
-    private matDialog: MatDialog,
-    private store: Store
-  ) {
-    this.isLoading$ = this.store.select(CursosSelectors.selectCursosLoading);
-  }
+  constructor(private cursosService: CursosService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadCursos();
-    this.store.select(CursosSelectors.selectCursosList).subscribe((cursos) => {
-      this.dataSource.data = cursos || []; // Asigna un arreglo vacío si `cursos` es null
-    });
   }
 
   loadCursos(): void {
-    this.store.dispatch(CursosActions.loadCursos());
+    this.cursosService.getCursos().subscribe(data => {
+      this.dataCursos = [...data]; 
+    });
   }
 
-  openModal(curso?: Curso): void {
-    const dialogRef = this.matDialog.open(CursosDialogComponent, {
-      data: { editingCurso: curso },
+  openDialog(curso?: Curso): void {
+    const dialogRef = this.dialog.open(CursosDialogComponent, {
+      width: '400px',
+      data: curso ? curso : null 
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
+    
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadCursos(); // Recargar cursos tras cerrar el modal
+        const existingIndex = this.dataCursos.findIndex(c => c.id === result.id);
+        
+        if (existingIndex !== -1) {
+          // Actualiza el curso editado en la lista
+          this.dataCursos[existingIndex] = { ...result };
+        } else {
+          // Agrega un nuevo curso si no existe en la lista
+          this.dataCursos.push({ ...result });
+        }
+
+        // Actualiza la referencia para detonar el cambio en la vista
+        this.dataCursos = [...this.dataCursos];
       }
     });
   }
 
-  onDelete(id: string): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
-      this.store.dispatch(CursosActions.deleteCurso({ id }));
-    }
+  deleteCurso(id: string): void {
+    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este curso?");
+    
+    if (confirmDelete) {
+      this.cursosService.removeCursoById(id).subscribe(() => {
+        this.loadCursos();
+      });
+    } 
   }
 }

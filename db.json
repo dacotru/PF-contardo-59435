@@ -71,9 +71,15 @@
   "cursos": [
     {
       "id": "4MSi",
-      "name": "Curso de Angular",
-      "startDate": "2024-12-01T00:00:00.000Z",
-      "endDate": "2024-12-01T23:59:59.999Z"
+      "nombre": "Curso de Angular",
+      "modalidad": "Vespertino",
+      "profesor": "Profesor B"
+    },
+    {
+      "id": "W6Xw",
+      "nombre": "Curso de JS",
+      "modalidad": "Diurno",
+      "profesor": "Profesor A"
     }
   ],
   "inscripciones": [
