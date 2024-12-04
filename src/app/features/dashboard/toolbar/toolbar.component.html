@@ -1,0 +1,14 @@
+<mat-toolbar class="top-bar">
+  <button mat-button (click)="drawer.toggle()">
+    <mat-icon class="text-white">menu</mat-icon>
+  </button>
+  <div class="d-flex justify-content-between align-items-center w-100 h-100">
+    <div>
+      <h1 class="logo">Alumnify</h1>
+    </div>
+
+    <div *ngIf="authUser$ | async; let authUser" class="text-white">
+      <mat-icon class="white">account_circle</mat-icon><small>{{ authUser.firstName }} {{ authUser.lastName }}</small>
+    </div>
+  </div>
+</mat-toolbar>

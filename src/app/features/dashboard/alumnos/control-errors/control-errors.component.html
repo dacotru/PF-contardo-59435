@@ -1,0 +1,14 @@
+<div *ngIf="control?.invalid && control?.touched">
+  <small class="text-danger" *ngIf="validationErrors?.['required']">
+    Este campo es obligatorio.
+  </small>
+  <small class="text-danger" *ngIf="validationErrors?.['minlength']">
+    Ingrese al menos {{ validationErrors?.['minlength']?.requiredLength }} caracteres.
+  </small>
+  <small class="text-danger" *ngIf="validationErrors?.['pattern']">
+    Este campo solo admite letras.
+  </small>
+  <small class="text-danger" *ngIf="validationErrors?.['email']">
+    Ingrese un correo electrónico válido (ej: micorreo&#64;email.com).
+  </small>
+</div>

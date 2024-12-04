@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "id": "lN4b",
+      "firstName": "Administrador",
+      "lastName": "Alumnify",
+      "email": "admin@alumnify.com",
+      "role": "Administrador",
+      "password": "123456",
+      "createdAt": "2024-11-05T02:04:15.131Z",
+      "token": "hrQzA6Bvkh1qIlVsR8kD"
+    },
+    {
+      "id": "ojnA",
+      "firstName": "Usuario",
+      "lastName": "Alumnify",
+      "email": "usuario@alumnify.com",
+      "role": "Usuario",
+      "password": "123456",
+      "createdAt": "2024-11-05T17:19:06.853Z",
+      "token": "uks6apeAu4A9p0gLVgnN"
+    },
+    {
+      "id": "YLga",
+      "firstName": "Dani",
+      "lastName": "Contardo",
+      "email": "danicontardo@gmail.com",
+      "role": "Administrador",
+      "password": "123456",
+      "createdAt": "2024-12-02T20:36:33.051Z",
+      "token": "2mwnko94FzUY5ngMeEER"
+    }
+  ],
+  "alumnos": [
+    {
+      "id": "GcIj",
+      "firstName": "Daniella",
+      "lastName": "Contardo",
+      "email": "danicontardo@gmail.com",
+      "createdAt": "2024-11-05T02:05:12.832Z"
+    },
+    {
+      "id": "G0gD",
+      "firstName": "Edda",
+      "lastName": "Castell",
+      "email": "edda@castel.com",
+      "createdAt": "2024-11-05T05:37:49.582Z"
+    },
+    {
+      "id": "117d",
+      "firstName": "Beatriz",
+      "lastName": "Truffello",
+      "email": "bea@mail.com",
+      "createdAt": "2024-12-03T23:47:43.927Z"
+    },
+    {
+      "id": "yx9ohj",
+      "firstName": "Fran",
+      "lastName": "Contardo",
+      "email": "francontardo@gmail.com",
+      "createdAt": "2024-12-04T20:33:43.510Z"
+    },
+    {
+      "id": "enp2vc",
+      "firstName": "Lenka",
+      "lastName": "Rios",
+      "email": "aaa@aa",
+      "createdAt": "2024-12-04T20:56:44.672Z"
+    }
+  ],
+  "cursos": [
+    {
+      "id": "4MSi",
+      "name": "Curso de Angular",
+      "startDate": "2024-12-01T00:00:00.000Z",
+      "endDate": "2024-12-01T23:59:59.999Z"
+    }
+  ],
+  "inscripciones": [
+    {
+      "id": "43b3",
+      "cursoId": "UpBJ",
+      "alumnoId": "G0gD"
+    },
+    {
+      "id": "7f18",
+      "cursoId": "W6Xw",
+      "alumnoId": "G0gD"
+    },
+    {
+      "id": "49ba",
+      "cursoId": "W6Xw",
+      "alumnoId": "G0gD"
+    },
+    {
+      "id": "9892",
+      "cursoId": "W6Xw",
+      "alumnoId": "G0gD"
+    },
+    {
+      "id": "04d7",
+      "cursoId": "W6Xw",
+      "alumnoId": "GcIj"
+    },
+    {
+      "id": "7a64",
+      "cursoId": "W6Xw",
+      "alumnoId": "G0gD"
+    },
+    {
+      "id": "22cf",
+      "cursoId": "UpBJ",
+      "alumnoId": "GcIj"
+    }
+  ]
+}

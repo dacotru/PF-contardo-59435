@@ -1,0 +1,50 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+// Incluye estilos comunes para Angular Material.
+// Esto debe incluirse solo una vez.
+@include mat.core();
+
+// Define el tema personalizado.
+$contardo-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Aplica el tema a todos los componentes de Angular Material.
+:root {
+  @include mat.all-component-themes($contardo-theme);
+}
+
+// Comentario opcional para incluir la jerarquía de tipografías.
+// @include mat.typography-hierarchy($contardo-theme);
+
+// Comentario opcional para la compatibilidad de colores heredados.
+// @include mat.color-variants-backwards-compatibility($contardo-theme);
+
+// Agrega estilos globales.
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-divider.aqua {
+  border-top-color: aquamarine;
+}
+
+.mat-mdc-form-field-error {
+  padding-bottom: 1rem;
+  color: darkred!important;
+}

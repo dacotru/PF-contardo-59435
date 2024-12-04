@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Detalle del Alumno</h2>
+<mat-dialog-content>
+  <p><strong>ID:</strong> {{ data.alumno.id }}</p>
+  <p><strong>Nombre:</strong> {{ data.alumno.firstName }} {{ data.alumno.lastName }}</p>
+  <p><strong>Email:</strong> {{ data.alumno.email }}</p>
+  <p><strong>Creado:</strong> {{ data.alumno.createdAt | date }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

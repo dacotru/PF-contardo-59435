@@ -1,0 +1,38 @@
+<h1 mat-dialog-title appTitles>{{ isEditing ? 'Editar Alumno' : 'Nuevo Alumno' }}</h1>
+<mat-divider class="aqua"></mat-divider>
+<mat-dialog-content>
+  <form [formGroup]="alumnoForm">
+    <mat-form-field class="example-form-field w-100 mb-3">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="firstName" />
+      <mat-error *ngIf="alumnoForm.get('firstName')?.hasError('required')">
+        El nombre es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-form-field w-100 mb-3">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="lastName" />
+      <mat-error *ngIf="alumnoForm.get('lastName')?.hasError('required')">
+        El apellido es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-form-field w-100 mb-3">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="alumnoForm.get('email')?.hasError('required')">
+        El email es obligatorio.
+      </mat-error>
+      <mat-error *ngIf="alumnoForm.get('email')?.hasError('email')">
+        Email inválido.
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="alumnoForm.hasError('duplicateError')">
+      Ya existe un alumno con estos datos.
+    </mat-error>
+  </form>
+</mat-dialog-content>
+<mat-divider class="aqua"></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close mat-button>Cancelar</button>
+  <button mat-flat-button (click)="onSave()">Guardar</button>
+</mat-dialog-actions>

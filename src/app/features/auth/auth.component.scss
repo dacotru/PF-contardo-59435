@@ -1,0 +1,21 @@
+.bg-auth {
+    background-color: rgb(15, 31, 63);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    padding-top: 2rem;
+}
+
+h1.logo  {
+    color: aquamarine;
+    font-family: "Playwrite GB S", cursive;
+    background-color: #0f1f3f;
+    margin: 0;
+    padding: 1rem 0 0 0;
+}
+
+.mat-mdc-card {
+    max-height: 380px;
+    margin: 0 1.5rem;
+}

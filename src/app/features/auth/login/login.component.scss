@@ -1,0 +1,29 @@
+.mat-mdc-unelevated-button:not(:disabled) {
+    color: #0f1f3f;
+    background-color: aquamarine;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1.5rem 1rem;
+}
+
+.mat-mdc-unelevated-button[disabled], .mat-mdc-unelevated-button.mat-mdc-button-disabled {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1.5rem 1rem;
+}
+
+.mat-mdc-unelevated-button:hover {
+    color: aquamarine;
+    background-color: #0f1f3f;
+}
+
+h1 {
+    color: rgb(15 31 63);
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+

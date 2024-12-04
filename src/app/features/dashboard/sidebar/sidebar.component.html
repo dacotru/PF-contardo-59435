@@ -1,0 +1,26 @@
+<mat-nav-list>
+  <button mat-list-item (click)="navigate('/dashboard/home')">
+    <mat-icon>home</mat-icon>
+    INICIO
+  </button>
+  <button mat-list-item (click)="navigate('/dashboard/alumnos')">
+    <mat-icon>school</mat-icon>
+    ALUMNOS
+  </button>
+  <button mat-list-item (click)="navigate('/dashboard/cursos')">
+    <mat-icon>library_books</mat-icon>
+    CURSOS
+  </button>
+  <button mat-list-item (click)="navigate('/dashboard/inscripciones')">
+    <mat-icon>edit</mat-icon>
+    INSCRIPCIONES
+  </button>
+  <button mat-list-item (click)="navigate('/dashboard/usuarios')">
+    <mat-icon>person</mat-icon>
+    USUARIOS
+  </button>
+  <button mat-list-item (click)="onLogout()">
+    <mat-icon>logout</mat-icon>
+    CERRAR SESIÓN
+  </button>
+</mat-nav-list>

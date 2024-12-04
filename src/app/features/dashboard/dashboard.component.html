@@ -1,0 +1,10 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-sidebar></app-sidebar> <!-- Sidebar que se muestra en el lado -->
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <app-toolbar [drawer]="drawer"></app-toolbar> <!-- Toolbar en la parte superior -->
+    <router-outlet></router-outlet> <!-- Aquí se cargarán los componentes secundarios -->
+  </mat-drawer-content>
+</mat-drawer-container>
