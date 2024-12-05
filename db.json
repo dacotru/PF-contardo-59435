@@ -34,7 +34,7 @@
   "alumnos": [
     {
       "id": "GcIj",
-      "firstName": "Daniella",
+      "firstName": "Dani",
       "lastName": "Contardo",
       "email": "danicontardo@gmail.com",
       "createdAt": "2024-11-05T02:05:12.832Z"
@@ -70,16 +70,39 @@
   ],
   "cursos": [
     {
-      "id": "4MSi",
-      "nombre": "Curso de Angular",
-      "modalidad": "Vespertino",
-      "profesor": "Profesor B"
+      "id": "wi41dh",
+      "nombre": "Introducción a Programación",
+      "modalidad": "Diurno",
+      "profesor": "Juan Pérez",
+      "createdAt": "2024-12-05T10:00:00.000Z"
     },
     {
-      "id": "W6Xw",
-      "nombre": "Curso de JS",
+      "id": "xk7pqr",
+      "nombre": "Desarrollo Web Avanzado",
+      "modalidad": "Vespertino",
+      "profesor": "Ana López",
+      "createdAt": "2024-12-05T11:00:00Z"
+    },
+    {
+      "id": "vl12ef",
+      "nombre": "Bases de Datos",
       "modalidad": "Diurno",
-      "profesor": "Profesor A"
+      "profesor": "Carlos García",
+      "createdAt": "2024-12-05T12:00:00Z"
+    },
+    {
+      "id": "hj78ty",
+      "nombre": "Inteligencia Artificial",
+      "modalidad": "Vespertino",
+      "profesor": "María Rodríguez",
+      "createdAt": "2024-12-05T13:00:00Z"
+    },
+    {
+      "id": "zt45uo",
+      "nombre": "Diseño de Interfaces",
+      "modalidad": "Vespertino",
+      "profesor": "Pedro Martínez",
+      "createdAt": "2024-12-05T14:00:00.000Z"
     }
   ],
   "inscripciones": [

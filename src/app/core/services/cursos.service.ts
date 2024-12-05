@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Curso } from '../../features/dashboard/cursos/models';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { generateRandomString } from '../../shared/utils';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Curso } from '../../features/dashboard/cursos/models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -13,23 +13,58 @@ export class CursosService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // Obtener todos los cursos
   getCursos(): Observable<Curso[]> {
-    return this.httpClient.get<Curso[]>(this.baseURL);
+    return this.httpClient.get<Curso[]>(this.baseURL).pipe(
+      map((cursos) =>
+        cursos.map((curso) => ({
+          ...curso,
+          createdAt: curso.createdAt ? new Date(curso.createdAt).toISOString() : undefined,
+        }))
+      )
+    );
   }
 
-  removeCursoById(id: string): Observable<Curso[]> {
-    return this.httpClient.delete<Curso[]>(`${this.baseURL}/${id}`);
+  // Obtener curso por ID
+  getById(id: string): Observable<Curso> { // ID como string
+    return this.httpClient.get<Curso>(`${this.baseURL}/${id}`).pipe(
+      map((curso) => ({
+        ...curso,
+        createdAt: curso.createdAt ? new Date(curso.createdAt).toISOString() : undefined,
+      }))
+    );
   }
+  
 
-  addCurso(newCurso: Omit<Curso, 'id'>): Observable<Curso> {
-    return this.httpClient.post<Curso>(this.baseURL, {
-      ...newCurso,
-      id: generateRandomString(4),
-    });
+  removeCursoById(id: number): Observable<{ id: number }> {
+    return this.httpClient.delete<void>(`${this.baseURL}/${id}`).pipe(
+      map(() => ({ id })) // Asegúrate de que esto devuelva un objeto con el `id`
+    );
   }
+  
+  
 
   updateCursoById(id: string, update: Partial<Curso>): Observable<Curso> {
-    return this.httpClient.patch<Curso>(`${this.baseURL}/${id}`, update);
+    return this.httpClient.patch<Curso>(`${this.baseURL}/${id}`, update).pipe(
+      map((curso) => ({
+        ...curso,
+        createdAt: curso.createdAt ? new Date(curso.createdAt).toISOString() : undefined,
+      }))
+    );
   }
-    
+  
+
+  addCurso(newCurso: Omit<Curso, 'id'>): Observable<Curso> {
+    const generatedId = Math.random().toString(36).substring(2, 8);
+    const cursoWithId = {
+      ...newCurso,
+      id: generatedId,
+    };
+
+    return this.httpClient.post<Curso>(this.baseURL, cursoWithId).pipe(
+      map((curso) => ({
+        ...curso,
+      }))
+    );
+  }
 }

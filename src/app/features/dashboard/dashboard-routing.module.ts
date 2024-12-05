@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { CursosComponent } from './cursos/cursos.component'; // Importación directa
 
 const routes: Routes = [
   {
@@ -22,10 +23,8 @@ const routes: Routes = [
         loadChildren: () =>
           import('./alumnos/alumnos.module').then((m) => m.AlumnosModule),
       },
-      {
-        path: 'cursos',
-        loadChildren: () =>
-          import('./cursos/cursos.module').then((m) => m.CursosModule),
+      { path: 'cursos', 
+        loadChildren: () => import('./cursos/cursos.module').then((m) => m.CursosModule)
       },
       {
         path: 'usuarios',

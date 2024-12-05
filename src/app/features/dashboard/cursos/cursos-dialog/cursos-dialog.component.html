@@ -1,6 +1,4 @@
-<h1 mat-dialog-title appTitles>
-  {{ data ? 'Editar Curso' : 'Crear Curso' }}
-</h1>
+<h1 mat-dialog-title>{{ data ? 'Editar Curso' : 'Crear Curso' }}</h1>
 <mat-divider class="pb-3"></mat-divider>
 <div mat-dialog-content>
   <form [formGroup]="cursoForm" (ngSubmit)="onSave()">
@@ -25,5 +23,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancelar</button>
-  <button (click)="onSave()" mat-flat-button color="primary" [disabled]="cursoForm.invalid">Guardar</button>
+  <button mat-flat-button color="primary" [disabled]="cursoForm.invalid" (click)="onSave()">Guardar</button>
 </div>

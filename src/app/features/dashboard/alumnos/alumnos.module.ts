@@ -14,7 +14,7 @@ import { AlumnosEffects } from './store/alumnos.effects';
   declarations: [
     AlumnosComponent,
     AlumnosDialogComponent,
-    AlumnoDetailComponent, // Declaración del nuevo componente
+    AlumnoDetailComponent,
   ],
   imports: [
     CommonModule,
