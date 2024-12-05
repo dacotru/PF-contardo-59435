@@ -6,6 +6,9 @@
       </button>
       <h1 appTitles class="my-4">Lista de Cursos</h1>
       <mat-divider></mat-divider>
+
+      <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
+
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 my-4">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -33,7 +36,7 @@
             <button mat-icon-button (click)="openDialog(curso)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button (click)="deleteCurso(curso.id)">
+            <button mat-icon-button color="warn" (click)="deleteCurso(curso.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -42,8 +45,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
-      
     </div>
   </div>
 </div>

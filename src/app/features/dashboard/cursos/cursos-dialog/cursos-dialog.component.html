@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ data ? 'Editar Curso' : 'Crear Curso' }}</h1>
+<h1 mat-dialog-title appTitles>{{ data ? 'Editar Curso' : 'Nuevo Curso' }}</h1>
 <mat-divider class="pb-3"></mat-divider>
 <div mat-dialog-content>
   <form [formGroup]="cursoForm" (ngSubmit)="onSave()">

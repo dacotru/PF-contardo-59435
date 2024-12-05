@@ -1,5 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
-import * as CursosActions from './cursos.actions';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { CursosActions } from './cursos.actions';
 import { Curso } from '../models';
 
 export interface CursosState {
@@ -17,7 +17,6 @@ export const initialState: CursosState = {
 export const cursosReducer = createReducer(
   initialState,
   
-  // Acción para cargar cursos
   on(CursosActions.loadCursos, (state) => ({
     ...state,
     loading: true,
@@ -33,23 +32,32 @@ export const cursosReducer = createReducer(
     loading: false,
   })),
 
-  // Acción para agregar curso
-  on(CursosActions.addCursoSuccess, (state, { curso }) => ({
-    ...state,
-    cursos: [...state.cursos, curso],
-  })),
-
-  // Acción para editar curso
-  on(CursosActions.editCursoSuccess, (state, { curso }) => ({
-    ...state,
-    cursos: state.cursos.map((c) =>
-      c.id === curso.id ? { ...c, ...curso } : c // Comparación exacta
-    ),
-  })),
-
-  // Acción para eliminar curso
   on(CursosActions.deleteCursoSuccess, (state, { id }) => ({
     ...state,
     cursos: state.cursos.filter((curso) => curso.id !== id),
-  }))
+  })),
+  
+
+  on(CursosActions.editCursoSuccess, (state, { curso }) => ({
+    ...state,
+    cursos: state.cursos.map((c) =>
+      c.id === curso.id ? { ...c, ...curso } : c
+    ),
+  })),
+
+  on(CursosActions.deleteCursoSuccess, (state, { id }) => ({
+    ...state,
+    cursos: state.cursos.filter((curso) => curso.id !== id), 
+  })),
 );
+
+export const cursosFeature = createFeature({
+  name: 'cursos',
+  reducer: createReducer(
+    initialState,
+    on(CursosActions.loadCursosSuccess, (state, { cursos }) => ({
+      ...state,
+      cursos,
+    }))
+  ),
+});

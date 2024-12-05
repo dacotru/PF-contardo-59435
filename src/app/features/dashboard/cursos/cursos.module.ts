@@ -6,7 +6,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { cursosReducer } from './store/cursos.reducer';
+import { cursosFeature } from './store/cursos.reducer';
 import { CursosEffects } from './store/cursos.effects';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { CursosEffects } from './store/cursos.effects';
     CommonModule,
     SharedModule,
     CursosRoutingModule,
-    StoreModule.forFeature('cursos', cursosReducer),
+    StoreModule.forFeature(cursosFeature.name, cursosFeature.reducer),
     EffectsModule.forFeature([CursosEffects]),
   ],
 })

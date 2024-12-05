@@ -1,83 +1,105 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map, of } from 'rxjs';
-import * as CursosActions from './cursos.actions';
+import { CursosActions } from './cursos.actions';
 import { CursosService } from '../../../../core/services/cursos.service';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class CursosEffects {
-  loadCursos$;
-  loadCursoById$;
-  addCurso$;
-  updateCurso$;
-  deleteCurso$;
+  loadCursos$: Actions<Action<string>>;
+  createCurso$: Actions<Action<string>>;
+  createCursoSuccess$: Actions<Action<string>>;
+  editCurso$: Actions<Action<string>>;
+  deleteCurso$: Actions<Action<string>>;
 
   constructor(private actions$: Actions, private cursosService: CursosService) {
-    // Efecto para cargar todos los cursos
+    // Efecto para cargar los cursos
     this.loadCursos$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(CursosActions.loadCursos),
         concatMap(() =>
           this.cursosService.getCursos().pipe(
-            map((cursos) => CursosActions.loadCursosSuccess({ cursos })),
-            catchError((error) => of(CursosActions.loadCursosFailure({ error })))
+            map((cursos) =>
+              CursosActions.loadCursosSuccess({ cursos })
+            ),
+            catchError((error) =>
+              of(CursosActions.loadCursosFailure({ error }))
+            )
           )
         )
       );
     });
 
-    // Cargar curso por ID
-    this.loadCursoById$ = createEffect(() => {
+    // Efecto para crear un curso
+    this.createCurso$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(CursosActions.loadCursoById),
+        ofType(CursosActions.createCurso),
         concatMap((action) =>
-          this.cursosService.getById(action.id).pipe(
-            map((curso) => CursosActions.loadCursoByIdSuccess({ curso })),
-            catchError((error) => of(CursosActions.loadCursoByIdFailure({ error })))
-          )
+          this.cursosService
+            .createCurso({
+              nombre: action.nombre,
+              modalidad: action.modalidad,
+              profesor: action.profesor,
+            })
+            .pipe(
+              map((curso) =>
+                CursosActions.createCursoSuccess({ curso })
+              ),
+              catchError((error) =>
+                of(CursosActions.createCursoFailure({ error }))
+              )
+            )
         )
       );
     });
 
-    // Efecto para agregar un curso
-    this.addCurso$ = createEffect(() => {
+    // Efecto para manejar la creación exitosa de un curso
+    this.createCursoSuccess$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(CursosActions.addCurso),
-        concatMap((action) =>
-          this.cursosService.addCurso(action.curso).pipe(
-            map((curso) => CursosActions.addCursoSuccess({ curso })),
-            catchError((error) => of(CursosActions.addCursoFailure({ error })))
-          )
-        )
+        ofType(CursosActions.createCursoSuccess),
+        map(() => CursosActions.loadCursos())
       );
     });
 
     // Efecto para editar un curso
-    this.updateCurso$ = createEffect(() => {
+    this.editCurso$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(CursosActions.editCurso),
         concatMap((action) =>
-          this.cursosService.updateCursoById(action.curso.id.toString(), action.curso).pipe( // Asegúrate de que el ID es consistente
-            map((curso) => CursosActions.editCursoSuccess({ curso })),
-            catchError((error) => of(CursosActions.editCursoFailure({ error })))
-          )
+          this.cursosService
+            .updateCursoById(action.curso.id, action.curso)
+            .pipe(
+              map((curso) =>
+                CursosActions.editCursoSuccess({ curso })
+              ),
+              catchError((error) =>
+                of(CursosActions.editCursoFailure({ error }))
+              )
+            )
         )
       );
     });
-    
-
 
     // Efecto para eliminar un curso
     this.deleteCurso$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(CursosActions.deleteCurso),
         concatMap((action) =>
-          this.cursosService.removeCursoById(action.id).pipe(
-            map(({ id }) => CursosActions.deleteCursoSuccess({ id })),
-            catchError((error) => of(CursosActions.deleteCursoFailure({ error })))
-          )
+          this.cursosService
+            .removeCursoById(action.id)
+            .pipe(
+              map(() =>
+                CursosActions.deleteCursoSuccess({ id: action.id })
+              ),
+              catchError((error) =>
+                of(CursosActions.deleteCursoFailure({ error }))
+              )
+            )
         )
       );
     });
   }
 }
+
+

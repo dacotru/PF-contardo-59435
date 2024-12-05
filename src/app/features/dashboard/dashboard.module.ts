@@ -19,7 +19,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     MatSidenavModule,
     MatToolbarModule,
     SharedModule,
-    DashboardRoutingModule, // Las rutas se encargan de cargar los módulos lazy
+    DashboardRoutingModule,
   ],
   exports: [
     ToolbarComponent,

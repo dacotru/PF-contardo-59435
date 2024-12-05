@@ -1,32 +1,51 @@
 <div class="m-4">
-  <div class="row">
-    <div class="col-12">
-      <button mat-fab extended class="float-end" (click)="abrirDialogo()">
-        <mat-icon>add</mat-icon>
-        Nueva Inscripción
-      </button>
-      <h1 appTitles class="my-4">Inscripciones</h1>
-      <mat-divider></mat-divider>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-4">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="estudiante">
-          <th mat-header-cell *matHeaderCellDef> Estudiante </th>
-          <td mat-cell *matCellDef="let element"> {{ element.estudiante }} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="curso">
-          <th mat-header-cell *matHeaderCellDef> Curso </th>
-          <td mat-cell *matCellDef="let element"> {{ element.curso }} </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="['id', 'estudiante', 'curso']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['id', 'estudiante', 'curso']"></tr>
-      </table>
-    </div>
-  </div>
-</div>
+  <button mat-fab extended (click)="openDialog()">
+    <mat-icon>add</mat-icon> Nueva Inscripción
+  </button>
+  <h1 class="mt-4">Lista de Inscripciones</h1>
+  <mat-divider></mat-divider>
 
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 my-4">
+    <!-- Columna ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let inscripcion">{{ inscripcion.id }}</td>
+    </ng-container>
+
+    <!-- Columna Alumno -->
+    <ng-container matColumnDef="alumno">
+      <th mat-header-cell *matHeaderCellDef> Alumno </th>
+      <td mat-cell *matCellDef="let inscripcion">
+        {{ inscripcion.alumno?.firstName }} {{ inscripcion.alumno?.lastName }}
+      </td>
+    </ng-container>
+
+    <!-- Columna Curso -->
+    <ng-container matColumnDef="curso">
+      <th mat-header-cell *matHeaderCellDef> Curso </th>
+      <td mat-cell *matCellDef="let inscripcion">
+        {{ inscripcion.curso?.nombre }}
+      </td>
+    </ng-container>
+
+    <!-- Columna Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let inscripcion">
+        <button mat-icon-button (click)="openDialog(inscripcion)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deleteInscripcion(inscripcion.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

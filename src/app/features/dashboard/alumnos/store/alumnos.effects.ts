@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, of, forkJoin } from 'rxjs';
-import * as AlumnosActions from './alumnos.actions';
-import { AlumnoService } from '../../../../core/services/alumnos.service';
+import { catchError, concatMap, map, of } from 'rxjs';
+import { AlumnosActions } from './alumnos.actions';
+import { AlumnosService } from '../../../../core/services/alumnos.service';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class AlumnosEffects {
-  loadAlumnos$;
-  loadAlumnoById$;
-  addAlumno$;
-  updateAlumno$;
-  deleteAlumno$;
+  loadAlumnos$: Actions<Action<string>>;
+  createAlumno$: Actions<Action<string>>;
+  createAlumnoSuccess$: Actions<Action<string>>;
+  editAlumno$: Actions<Action<string>>;
+  deleteAlumno$: Actions<Action<string>>;
 
-  constructor(private actions$: Actions, private alumnoService: AlumnoService) {
+  constructor(private actions$: Actions, private alumnosService: AlumnosService) {
     this.loadAlumnos$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(AlumnosActions.loadAlumnos),
         concatMap(() =>
-          this.alumnoService.getAlumnos().pipe(
-            map((alumnos) =>
-              AlumnosActions.loadAlumnosSuccess({ alumnos })
-            ),
+          this.alumnosService.getAlumnos().pipe(
+            map((alumnos) => AlumnosActions.loadAlumnosSuccess({ alumnos })),
             catchError((error) =>
               of(AlumnosActions.loadAlumnosFailure({ error }))
             )
@@ -29,44 +28,38 @@ export class AlumnosEffects {
       );
     });
 
-    this.loadAlumnoById$ = createEffect(() => {
+    this.createAlumno$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(AlumnosActions.loadAlumnoById),
+        ofType(AlumnosActions.createAlumno),
         concatMap((action) =>
-          this.alumnoService.getById(action.id).pipe(
+          this.alumnosService.createAlumno(action.alumno).pipe(
             map((alumno) =>
-              AlumnosActions.loadAlumnoByIdSuccess({ alumno })
+              AlumnosActions.createAlumnoSuccess({ alumno })
             ),
             catchError((error) =>
-              of(AlumnosActions.loadAlumnoByIdFailure({ error }))
+              of(AlumnosActions.createAlumnoFailure({ error }))
             )
           )
         )
       );
     });
 
-    this.addAlumno$ = createEffect(() => {
+    this.createAlumnoSuccess$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(AlumnosActions.addAlumno),
-        concatMap((action) =>
-          this.alumnoService.addAlumno(action.alumno).pipe(
-            map((alumno) => AlumnosActions.addAlumnoSuccess({ alumno })),
-            catchError((error) =>
-              of(AlumnosActions.addAlumnoFailure({ error }))
-            )
-          )
-        )
+        ofType(AlumnosActions.createAlumnoSuccess),
+        map(() => AlumnosActions.loadAlumnos())
       );
     });
 
-    this.updateAlumno$ = createEffect(() => {
+    this.editAlumno$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(AlumnosActions.editAlumno),
         concatMap((action) =>
-          this.alumnoService.updateAlumnoById(action.alumno.id, action.alumno).pipe(
-            map((alumno) =>
-              AlumnosActions.editAlumnoSuccess({ alumno })
-            ),
+          this.alumnosService.updateAlumnoById(action.alumno.id, action.alumno).pipe(
+            map((alumno) => {
+              // Despacha el éxito de la edición, actualizando el estado con el alumno editado
+              return AlumnosActions.editAlumnoSuccess({ alumno });
+            }),
             catchError((error) =>
               of(AlumnosActions.editAlumnoFailure({ error }))
             )
@@ -79,9 +72,9 @@ export class AlumnosEffects {
       return this.actions$.pipe(
         ofType(AlumnosActions.deleteAlumno),
         concatMap((action) =>
-          this.alumnoService.removeAlumnoById(action.id).pipe(
-            map(({ id }) =>
-              AlumnosActions.deleteAlumnoSuccess({ id })
+          this.alumnosService.removeAlumnoById(action.id).pipe(
+            map(() =>
+              AlumnosActions.deleteAlumnoSuccess({ id: action.id })
             ),
             catchError((error) =>
               of(AlumnosActions.deleteAlumnoFailure({ error }))

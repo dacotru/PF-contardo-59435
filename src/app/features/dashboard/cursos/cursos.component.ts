@@ -1,64 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import * as CursosSelectors from './store/cursos.selectors'; // Todos los selectores de Cursos
-import * as CursosActions from './store/cursos.actions'; // Acciones de Cursos
-import { Curso } from './models/'; // Modelo de Curso
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { CursosActions } from './store/cursos.actions';
+import { selectCursosList,selectCursosLoading } from './store/cursos.selectors';
 import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
+import { Curso } from './models';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
 })
 export class CursosComponent implements OnInit {
-  dataSource = new MatTableDataSource<Curso>([]); // Tabla de Cursos
+  cursoForm: FormGroup;
+  dataSource = new MatTableDataSource<Curso>([]);
   displayedColumns: string[] = ['id', 'nombre', 'modalidad', 'profesor', 'acciones'];
-  isLoading$: Observable<boolean>; // Estado de carga
+  cursos$: Observable<Curso[]>;
+  isLoading$: Observable<boolean>;
 
-  constructor(private store: Store, private dialog: MatDialog) {
-    // Selector para el estado de carga
-    this.isLoading$ = this.store.select(CursosSelectors.selectCursosLoading);
+  constructor(
+    private store: Store,
+    private dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
+    this.cursoForm = this.fb.group({
+      nombre: ['', Validators.required],
+      modalidad: ['', Validators.required],
+      profesor: ['', Validators.required],
+    });
+
+    this.cursos$ = this.store.select(selectCursosList);
+    this.isLoading$ = this.store.select(selectCursosLoading);
   }
 
   ngOnInit(): void {
-    console.log('Despachando acción loadCursos...');
-    // Despacha la acción para cargar cursos
     this.store.dispatch(CursosActions.loadCursos());
 
-    // Suscríbete al selector para obtener la lista de cursos
-    this.store.select(CursosSelectors.selectCursosList).subscribe((cursos) => {
-      console.log('Cursos recibidos del store:', cursos);
+    this.cursos$.subscribe((cursos) => {
       this.dataSource.data = cursos || [];
     });
   }
 
-  // Abrir diálogo para agregar o editar cursos
+  onSubmit(): void {
+    if (this.cursoForm.valid) {
+      const { nombre, modalidad, profesor } = this.cursoForm.value;
+      this.store.dispatch(
+        CursosActions.createCurso({ nombre, modalidad, profesor })
+      );
+      this.cursoForm.reset();
+    }
+  }
+  
+  
+
   openDialog(curso?: Curso): void {
     const dialogRef = this.dialog.open(CursosDialogComponent, {
-      data: curso,
+      width: '400px',
+      data: curso || null,
     });
   
-    dialogRef.afterClosed().subscribe((result: Curso | undefined) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if (curso?.id) {
+        if (curso) {
           // Editar curso existente
-          console.log('Editando curso:', { ...curso, ...result });
-          this.store.dispatch(CursosActions.editCurso({ curso: { ...curso, ...result } }));
+          this.store.dispatch(
+            CursosActions.editCurso({ curso: { ...curso, ...result } })
+          );
         } else {
-          // Agregar nuevo curso
-          console.log('Agregando curso:', result);
-          this.store.dispatch(CursosActions.addCurso({ curso: result }));
+          // Crear un nuevo curso
+          this.store.dispatch(
+            CursosActions.createCurso(result)
+          );
         }
       }
     });
   }
   
+  
 
-  // Eliminar curso
-  deleteCurso(id: number): void {
-    if (confirm('¿Estás seguro que quieres eliminar este curso?')) {
+  deleteCurso(id: string): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
       this.store.dispatch(CursosActions.deleteCurso({ id }));
     }
   }

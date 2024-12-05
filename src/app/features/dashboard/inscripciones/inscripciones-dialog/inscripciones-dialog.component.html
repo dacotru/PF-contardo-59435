@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h1>
+<mat-divider class="pb-3"></mat-divider>
+
+<div mat-dialog-content>
+  <form [formGroup]="inscripcionForm" (ngSubmit)="onSave()">
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Alumno</mat-label>
+      <mat-select formControlName="alumnoId">
+        
+        <mat-option
+          [value]="alumno.id"
+          *ngFor="let alumno of alumnoOptions$ | async"
+        >
+          {{ alumno.firstName }} {{ alumno.lastName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="inscripcionForm.get('alumnoId')?.hasError('required')">
+        Seleccionar un alumno es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="cursoId">
+        <mat-option [value]="curso.id" *ngFor="let curso of cursoOptions$ | async">
+          {{ curso.nombre }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="inscripcionForm.get('cursoId')?.hasError('required')">
+        Seleccionar un curso es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  
+    <button type="submit" mat-flat-button color="primary" [disabled]="inscripcionForm.invalid">
+      Guardar
+    </button>
+  </form>
+  
+</div>

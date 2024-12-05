@@ -33,39 +33,29 @@
   ],
   "alumnos": [
     {
-      "id": "GcIj",
-      "firstName": "Dani",
-      "lastName": "Contardo",
-      "email": "danicontardo@gmail.com",
-      "createdAt": "2024-11-05T02:05:12.832Z"
+      "id": "8eed",
+      "firstName": "Sonia",
+      "lastName": "Leiva"
     },
     {
-      "id": "G0gD",
+      "id": "4937",
       "firstName": "Edda",
-      "lastName": "Castell",
-      "email": "edda@castel.com",
-      "createdAt": "2024-11-05T05:37:49.582Z"
+      "lastName": "Castel"
     },
     {
-      "id": "117d",
-      "firstName": "Beatriz",
-      "lastName": "Truffello",
-      "email": "bea@mail.com",
-      "createdAt": "2024-12-03T23:47:43.927Z"
-    },
-    {
-      "id": "yx9ohj",
+      "id": "06a1",
       "firstName": "Fran",
-      "lastName": "Contardo",
-      "email": "francontardo@gmail.com",
-      "createdAt": "2024-12-04T20:33:43.510Z"
+      "lastName": "Contardo"
     },
     {
-      "id": "enp2vc",
-      "firstName": "Lenka",
-      "lastName": "Rios",
-      "email": "aaa@aa",
-      "createdAt": "2024-12-04T20:56:44.672Z"
+      "id": "7313",
+      "firstName": "María",
+      "lastName": "Truffello"
+    },
+    {
+      "id": "bac5",
+      "firstName": "Carlo",
+      "lastName": "Battaglia"
     }
   ],
   "cursos": [
@@ -93,7 +83,7 @@
     {
       "id": "hj78ty",
       "nombre": "Inteligencia Artificial",
-      "modalidad": "Vespertino",
+      "modalidad": "Diurno",
       "profesor": "María Rodríguez",
       "createdAt": "2024-12-05T13:00:00Z"
     },
@@ -107,39 +97,39 @@
   ],
   "inscripciones": [
     {
-      "id": "43b3",
-      "cursoId": "UpBJ",
-      "alumnoId": "G0gD"
+      "id": "a1b2",
+      "alumnoId": "8eed",
+      "cursoId": "wi41dh",
+      "fecha": "2024-12-06T09:00:00Z"
     },
     {
-      "id": "7f18",
-      "cursoId": "W6Xw",
-      "alumnoId": "G0gD"
+      "id": "c3d4",
+      "alumnoId": "4937",
+      "cursoId": "xk7pqr",
+      "fecha": "2024-12-06T10:00:00Z"
     },
     {
-      "id": "49ba",
-      "cursoId": "W6Xw",
-      "alumnoId": "G0gD"
+      "id": "e5f6",
+      "alumnoId": "06a1",
+      "cursoId": "vl12ef",
+      "fecha": "2024-12-06T11:00:00Z"
     },
     {
-      "id": "9892",
-      "cursoId": "W6Xw",
-      "alumnoId": "G0gD"
+      "id": "g7h8",
+      "alumnoId": "7313",
+      "cursoId": "hj78ty",
+      "fecha": "2024-12-06T12:00:00Z"
     },
     {
-      "id": "04d7",
-      "cursoId": "W6Xw",
-      "alumnoId": "GcIj"
+      "id": "i9j0",
+      "alumnoId": "bac5",
+      "cursoId": "zt45uo",
+      "fecha": "2024-12-06T13:00:00Z"
     },
     {
-      "id": "7a64",
-      "cursoId": "W6Xw",
-      "alumnoId": "G0gD"
-    },
-    {
-      "id": "22cf",
-      "cursoId": "UpBJ",
-      "alumnoId": "GcIj"
+      "id": "43ff",
+      "alumnoId": "4937",
+      "cursoId": "xk7pqr"
     }
   ]
 }

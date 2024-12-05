@@ -15,17 +15,15 @@ export class CursosDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<CursosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Curso
   ) {
-    // Inicializamos el formulario directamente en el constructor
+    // Inicialización del formulario con los controles: 'nombre', 'modalidad' y 'profesor'
     this.cursoForm = this.fb.group({
-      nombre: [data?.nombre || '', Validators.required],
-      modalidad: [data?.modalidad || '', Validators.required],
-      profesor: [data?.profesor || '', Validators.required],
+      nombre: [data?.nombre || '', Validators.required],  // Control 'nombre'
+      modalidad: [data?.modalidad || '', Validators.required],  // Control 'modalidad'
+      profesor: [data?.profesor || '', Validators.required],  // Control 'profesor'
     });
   }
 
-  ngOnInit(): void {
-    // Opcionalmente puedes añadir lógica adicional aquí
-  }
+  ngOnInit(): void {}
 
   onSave() {
     if (this.cursoForm.valid) {
