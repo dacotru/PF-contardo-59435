@@ -6,11 +6,11 @@ import { Alumno } from '../../alumnos/models/';
 import { Curso } from '../../cursos/models/';
 
 export interface InscripcionesState {
-  inscripciones: Inscripcion[];
-  alumnosOptions: Alumno[];
-  cursosOptions: Curso[];
-  isLoadingInscripciones: boolean;
-  loadInscripcionesError: Error | null;
+  inscripciones: Inscripcion[];        // Lista de inscripciones
+  alumnosOptions: Alumno[];           // Opciones de alumnos disponibles
+  cursosOptions: Curso[];             // Opciones de cursos disponibles
+  isLoadingInscripciones: boolean;    // Estado de carga
+  loadInscripcionesError: Error | null; // Error en la carga de inscripciones
 }
 
 export const initialState: InscripcionesState = {

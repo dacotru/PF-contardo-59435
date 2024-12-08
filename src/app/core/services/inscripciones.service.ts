@@ -8,14 +8,12 @@ import { environment } from '../../../environments/environment';
 export class InscripcionesService {
   constructor(private httpClient: HttpClient) {}
 
-  // Obtener todas las inscripciones
   getInscripciones(): Observable<Inscripcion[]> {
     return this.httpClient.get<Inscripcion[]>(
       `${environment.apiBaseURL}/inscripciones?_embed=alumno&_embed=curso`
     );
   }
 
-  // Crear una inscripción
   createInscripcion(
     payload: Omit<Inscripcion, 'id' | 'alumno' | 'curso'>
   ): Observable<Inscripcion> {
@@ -25,18 +23,14 @@ export class InscripcionesService {
     );
   }
 
-  // Editar una inscripción
-  updateInscripcionById(
-    id: string,
-    update: Partial<Inscripcion>
-  ): Observable<Inscripcion> {
+  updateInscripcionById(id: string, update: Partial<Inscripcion & { alumnoNombre?: string; cursoNombre?: string }>): Observable<Inscripcion> {
+    const { alumno, curso, alumnoNombre, cursoNombre, ...payload } = update;
     return this.httpClient.patch<Inscripcion>(
       `${environment.apiBaseURL}/inscripciones/${id}`,
-      update
+      payload
     );
   }
 
-  // Eliminar una inscripción
   removeInscripcionById(id: string): Observable<void> {
     return this.httpClient.delete<void>(
       `${environment.apiBaseURL}/inscripciones/${id}`

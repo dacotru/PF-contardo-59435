@@ -1,4 +1,6 @@
-<h1 mat-dialog-title>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h1>
+
+<h1 mat-dialog-title appTitles>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h1>
+
 <mat-divider class="pb-3"></mat-divider>
 
 <div mat-dialog-content>
@@ -6,7 +8,6 @@
     <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Alumno</mat-label>
       <mat-select formControlName="alumnoId">
-        
         <mat-option
           [value]="alumno.id"
           *ngFor="let alumno of alumnoOptions$ | async"

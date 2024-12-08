@@ -41,7 +41,11 @@ body {
 }
 
 .mat-divider.aqua {
-  border-top-color: aquamarine;
+  border-top-color: aquamarine!important;;
+}
+
+.mat-mdc-cell {
+  border-bottom-color: aquamarine!important;
 }
 
 .mat-mdc-form-field-error {

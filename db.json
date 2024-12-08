@@ -54,8 +54,18 @@
     },
     {
       "id": "bac5",
-      "firstName": "Carlo",
-      "lastName": "Battaglia"
+      "firstName": "Lenka",
+      "lastName": "Rios"
+    },
+    {
+      "id": "c18e",
+      "firstName": "Valeria",
+      "lastName": "Pinheiro"
+    },
+    {
+      "id": "3254",
+      "firstName": "Victor",
+      "lastName": "Jara"
     }
   ],
   "cursos": [
@@ -93,42 +103,43 @@
       "modalidad": "Vespertino",
       "profesor": "Pedro Martínez",
       "createdAt": "2024-12-05T14:00:00.000Z"
+    },
+    {
+      "id": "72ea",
+      "nombre": "Javascript",
+      "modalidad": "Vespertino",
+      "profesor": "Pato Pérez"
     }
   ],
   "inscripciones": [
     {
-      "id": "a1b2",
+      "id": "915c",
       "alumnoId": "8eed",
-      "cursoId": "wi41dh",
-      "fecha": "2024-12-06T09:00:00Z"
+      "cursoId": "vl12ef"
     },
     {
-      "id": "c3d4",
+      "id": "26d7",
       "alumnoId": "4937",
-      "cursoId": "xk7pqr",
-      "fecha": "2024-12-06T10:00:00Z"
+      "cursoId": "72ea"
     },
     {
-      "id": "e5f6",
+      "id": "2eb2",
       "alumnoId": "06a1",
-      "cursoId": "vl12ef",
-      "fecha": "2024-12-06T11:00:00Z"
+      "cursoId": "xk7pqr"
     },
     {
-      "id": "g7h8",
+      "id": "c17e",
       "alumnoId": "7313",
-      "cursoId": "hj78ty",
-      "fecha": "2024-12-06T12:00:00Z"
+      "cursoId": "hj78ty"
     },
     {
-      "id": "i9j0",
+      "id": "88d0",
+      "alumnoId": "c18e",
+      "cursoId": "vl12ef"
+    },
+    {
+      "id": "1a8c",
       "alumnoId": "bac5",
-      "cursoId": "zt45uo",
-      "fecha": "2024-12-06T13:00:00Z"
-    },
-    {
-      "id": "43ff",
-      "alumnoId": "4937",
       "cursoId": "xk7pqr"
     }
   ]

@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../../alumnos/models';
 import { Curso } from '../../cursos/models';
 import { Inscripcion } from '../models';
-import { selectAlumnos } from '../../alumnos/store/alumnos.selectors';
-import { selectCursosList } from '../../cursos/store/cursos.selectors';
+import { selectAlumnosOptions, selectCursosOptions } from '../store/inscripciones.selectors';
 import { InscripcionesActions } from '../store/inscripciones.actions';
 
 @Component({
@@ -31,25 +30,36 @@ export class InscripcionesDialogComponent implements OnInit {
       cursoId: ['', [Validators.required]],
     });
 
-    this.alumnoOptions$ = this.store.select(selectAlumnos);
-    this.cursoOptions$ = this.store.select(selectCursosList);
+    this.alumnoOptions$ = this.store.select(selectAlumnosOptions);
+    this.cursoOptions$ = this.store.select(selectCursosOptions);
   }
 
   ngOnInit(): void {
-    if (!this.data) {
-      this.store.dispatch(InscripcionesActions.loadAlumnosAndCursosOptions());
+    // Despachar la acción para asegurar que las opciones estén cargadas
+    this.store.dispatch(InscripcionesActions.loadAlumnosAndCursosOptions());
+
+    // Si estamos en modo edición, inicializar el formulario con los datos de la inscripción
+    if (this.data) {
+      this.inscripcionForm.patchValue({
+        alumnoId: this.data.alumnoId,
+        cursoId: this.data.cursoId,
+      });
     }
-  
-    this.alumnoOptions$ = this.store.select(selectAlumnos);
-    this.cursoOptions$ = this.store.select(selectCursosList);
   }
-  
 
   onSave(): void {
     if (this.inscripcionForm.valid) {
-      this.dialogRef.close({ ...this.data, ...this.inscripcionForm.value });
+      this.dialogRef.close({
+        id: this.data?.id, // Incluye el ID solo si estamos editando
+        alumnoId: this.inscripcionForm.value.alumnoId,
+        cursoId: this.inscripcionForm.value.cursoId,
+      });
+    } else {
+      this.inscripcionForm.markAllAsTouched(); // Marca los campos como tocados para mostrar errores
     }
   }
+  
+  
 
   onCancel(): void {
     this.dialogRef.close();

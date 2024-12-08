@@ -23,6 +23,7 @@ export const selectCursosOptions = createSelector(
   (state: InscripcionesState) => state.cursosOptions
 );
 
+
 // Selector para el estado de carga
 export const selectIsLoadingInscripciones = createSelector(
   selectInscripcionesState,

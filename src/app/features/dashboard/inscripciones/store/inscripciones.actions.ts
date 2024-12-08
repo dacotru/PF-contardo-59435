@@ -12,7 +12,7 @@ export const InscripcionesActions = createActionGroup({
     'Load Inscripciones Failure': props<{ error: Error }>(),
 
     // Crear Inscripción
-    'Create Inscripcion': props<{ alumnoId: string; cursoId: string; fecha: string }>(),
+    'Create Inscripcion': props<{ alumnoId: string; cursoId: string }>(),
     'Create Inscripcion Success': props<{ inscripcion: Inscripcion }>(),
     'Create Inscripcion Failure': props<{ error: Error }>(),
 

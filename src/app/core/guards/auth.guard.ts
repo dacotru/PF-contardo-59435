@@ -9,11 +9,9 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   return authService.verifyToken().pipe(
     map((isValid) => {
-      console.log('Token válido:', isValid);
       return isValid || router.createUrlTree(['/auth/login']);
     }),
     catchError((error) => {
-      console.error('Error en authGuard:', error);
       return of(router.createUrlTree(['/auth/login']));
     })
   );
