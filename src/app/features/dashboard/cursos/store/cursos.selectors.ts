@@ -1,18 +1,30 @@
-import { createSelector } from '@ngrx/store';
-import { cursosFeature } from './cursos.reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromCursos from './cursos.reducer';
 
-export const selectCursosState = cursosFeature.selectCursosState;
+// Selector base para el estado de cursos
+export const selectCursosState = createFeatureSelector<fromCursos.CursosState>(
+  fromCursos.cursosFeatureKey
+);
 
-export const selectCursosList = createSelector(
+// Selector para obtener la lista de cursos
+export const selectAllCursos = createSelector(
   selectCursosState,
   (state) => state.cursos
 );
 
-export const selectCursosLoading = createSelector(
+// Selector para obtener las opciones de cursos
+export const selectCursosOptions = createSelector(
+  selectCursosState,
+  (state) => state.cursosOptions
+);
+
+// Selector para verificar si los cursos están cargándose
+export const selectIsLoadingCursos = createSelector(
   selectCursosState,
   (state) => state.loading
 );
 
+// Selector para obtener errores relacionados con cursos
 export const selectCursosError = createSelector(
   selectCursosState,
   (state) => state.error

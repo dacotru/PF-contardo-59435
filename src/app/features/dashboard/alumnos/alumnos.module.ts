@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlumnosComponent } from './alumnos.component';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
-import { SharedModule } from '../../../shared/shared.module';
 import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-
-import { alumnosReducer, alumnosFeatureKey } from './store/alumnos.reducer'; // Usa alumnosFeatureKey aquí
 import { AlumnosEffects } from './store/alumnos.effects';
-
+import { StoreModule } from '@ngrx/store';
+import { alumnosFeature } from './store/alumnos.reducer';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +18,7 @@ import { AlumnosEffects } from './store/alumnos.effects';
     CommonModule,
     SharedModule,
     AlumnosRoutingModule,
-    StoreModule.forFeature(alumnosFeatureKey, alumnosReducer), // Aquí usas alumnosFeatureKey
+    StoreModule.forFeature(alumnosFeature),
     EffectsModule.forFeature([AlumnosEffects]),
   ],
 })

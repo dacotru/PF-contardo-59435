@@ -1,37 +1,37 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { InscripcionesState } from './inscripciones.reducer';
+import * as fromInscripciones from './inscripciones.reducer';
 
-// Selector para el estado completo de inscripciones
-export const selectInscripcionesState =
-  createFeatureSelector<InscripcionesState>('inscripciones');
-
-// Selector para la lista completa de inscripciones
-export const selectInscripcionesList = createSelector(
-  selectInscripcionesState,
-  (state: InscripcionesState) => state.inscripciones
+// Selector for the Inscripciones state
+export const selectInscripcionesState = createFeatureSelector<fromInscripciones.InscripcionesState>(
+  fromInscripciones.inscripcionesFeatureKey
 );
 
-// Selector para opciones de alumnos
+// Selector for the list of inscripciones
+export const selectInscripciones = createSelector(
+  selectInscripcionesState,
+  (state) => state.inscripciones
+);
+
+// Selector for alumno options
 export const selectAlumnosOptions = createSelector(
   selectInscripcionesState,
-  (state: InscripcionesState) => state.alumnosOptions
+  (state) => state.alumnosOptions
 );
 
-// Selector para opciones de cursos
+// Selector for curso options
 export const selectCursosOptions = createSelector(
   selectInscripcionesState,
-  (state: InscripcionesState) => state.cursosOptions
+  (state) => state.cursosOptions
 );
 
-
-// Selector para el estado de carga
-export const selectIsLoadingInscripciones = createSelector(
-  selectInscripcionesState,
-  (state: InscripcionesState) => state.isLoadingInscripciones
-);
-
-// Selector para errores de carga
+// Selector for errors in loading inscripciones
 export const selectLoadInscripcionesError = createSelector(
   selectInscripcionesState,
-  (state: InscripcionesState) => state.loadInscripcionesError
+  (state) => state.loadInscripcionesError
+);
+
+// Selector for checking if inscripciones are being loaded
+export const selectIsLoadingInscripciones = createSelector(
+  selectInscripcionesState,
+  (state) => state.isLoadingInscripciones
 );

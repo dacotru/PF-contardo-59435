@@ -19,6 +19,7 @@ export class AlumnosDialogComponent implements OnInit {
     this.alumnoForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+      mail: ['', [Validators.required, Validators.email]],
     });
   }
 

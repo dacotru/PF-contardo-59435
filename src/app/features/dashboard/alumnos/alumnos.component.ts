@@ -3,15 +3,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
 
 import { AlumnosActions } from './store/alumnos.actions';
-import {
-  selectAlumnos,
-  selectLoadAlumnosError,
-} from './store/alumnos.selectors';
+import { selectAlumnos, selectAlumnosError } from './store/alumnos.selectors';
 import { Alumno } from './models';
+import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
 
 @Component({
   selector: 'app-alumnos',
@@ -23,20 +19,16 @@ export class AlumnosComponent implements OnInit {
   dataSource = new MatTableDataSource<Alumno>([]);
 
   // Columnas a mostrar en la tabla
-  displayedColumns: string[] = ['id', 'nombreCompleto', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombreCompleto', 'mail', 'acciones'];
 
   // Observables para los alumnos y errores
   alumnos$: Observable<Alumno[]>;
   loadError$: Observable<any>;
 
-  constructor(
-    private store: Store,
-    private dialog: MatDialog,
-    private fb: FormBuilder
-  ) {
+  constructor(private store: Store, private dialog: MatDialog) {
     // Inicializando los observables
     this.alumnos$ = this.store.select(selectAlumnos);
-    this.loadError$ = this.store.select(selectLoadAlumnosError);
+    this.loadError$ = this.store.select(selectAlumnosError);
   }
 
   ngOnInit(): void {
@@ -65,9 +57,7 @@ export class AlumnosComponent implements OnInit {
           );
         } else {
           // Crear un nuevo alumno
-          this.store.dispatch(
-            AlumnosActions.createAlumno({ alumno: result })
-          );
+          this.store.dispatch(AlumnosActions.createAlumno({ alumno: result }));
         }
       }
     });

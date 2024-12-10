@@ -8,8 +8,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { inscripcionesFeature } from './store/inscripciones.reducer';
 import { InscripcionesEffects } from './store/inscripciones.effects';
-import { Store } from '@ngrx/store';
-import { InscripcionesActions } from './store/inscripciones.actions';
 
 @NgModule({
   declarations: [
@@ -20,15 +18,8 @@ import { InscripcionesActions } from './store/inscripciones.actions';
     CommonModule,
     SharedModule,
     InscripcionesRoutingModule,
-    StoreModule.forFeature(inscripcionesFeature.name, inscripcionesFeature.reducer),
+    StoreModule.forFeature(inscripcionesFeature),
     EffectsModule.forFeature([InscripcionesEffects]),
-    
-    
   ],
 })
-export class InscripcionesModule {
-  constructor(private store: Store) {
-    // Despacha la acción para cargar alumnos y cursos automáticamente al cargar el módulo
-    this.store.dispatch(InscripcionesActions.loadAlumnosAndCursosOptions());
-  }
-}
+export class InscripcionesModule {}

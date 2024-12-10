@@ -33,48 +33,50 @@
   ],
   "alumnos": [
     {
-      "id": "8eed",
-      "firstName": "Sonia",
-      "lastName": "Leiva"
-    },
-    {
       "id": "4937",
       "firstName": "Edda",
-      "lastName": "Castel"
+      "lastName": "Castel",
+      "mail": "edda.castel@mail.cl"
     },
     {
       "id": "06a1",
       "firstName": "Fran",
-      "lastName": "Contardo"
+      "lastName": "Contardo",
+      "mail": "fran.contardo@example.com"
     },
     {
       "id": "7313",
       "firstName": "María",
-      "lastName": "Truffello"
-    },
-    {
-      "id": "bac5",
-      "firstName": "Lenka",
-      "lastName": "Rios"
+      "lastName": "Truffello",
+      "mail": "maria.truffello@mail.cl"
     },
     {
       "id": "c18e",
       "firstName": "Valeria",
-      "lastName": "Pinheiro"
+      "lastName": "Pinheiro",
+      "mail": "valeria.pinheiro@example.br"
     },
     {
       "id": "3254",
       "firstName": "Victor",
-      "lastName": "Jara"
+      "lastName": "Jara",
+      "mail": "victor.jara@example.com"
+    },
+    {
+      "id": "bac5",
+      "firstName": "Lenka",
+      "lastName": "Rios",
+      "mail": "lenka.rios@example.com"
     }
   ],
   "cursos": [
     {
       "id": "wi41dh",
       "nombre": "Introducción a Programación",
-      "modalidad": "Diurno",
-      "profesor": "Juan Pérez",
-      "createdAt": "2024-12-05T10:00:00.000Z"
+      "modalidad": "Vespertino",
+      "profesor": "Pato Pérez",
+      "createdAt": "2024-12-05T10:00:00.000Z",
+      "alumnos": []
     },
     {
       "id": "xk7pqr",
@@ -108,15 +110,11 @@
       "id": "72ea",
       "nombre": "Javascript",
       "modalidad": "Vespertino",
-      "profesor": "Pato Pérez"
+      "profesor": "Pato Pérez",
+      "createdAt": "2024-12-05T15:00:00Z"
     }
   ],
   "inscripciones": [
-    {
-      "id": "915c",
-      "alumnoId": "8eed",
-      "cursoId": "vl12ef"
-    },
     {
       "id": "26d7",
       "alumnoId": "4937",
@@ -141,6 +139,21 @@
       "id": "1a8c",
       "alumnoId": "bac5",
       "cursoId": "xk7pqr"
+    },
+    {
+      "id": "c13b",
+      "alumnoId": "3254",
+      "cursoId": "zt45uo"
+    },
+    {
+      "id": "5f05",
+      "alumnoId": "4937",
+      "cursoId": "72ea"
+    },
+    {
+      "id": "8b9e",
+      "alumnoId": "06a1",
+      "cursoId": "zt45uo"
     }
   ]
 }

@@ -8,6 +8,10 @@ export const CursosActions = createActionGroup({
     'Load Cursos Success': props<{ cursos: Curso[] }>(),
     'Load Cursos Failure': props<{ error: Error }>(),
 
+    'Load Cursos Options': emptyProps(),
+    'Load Cursos Options Success': props<{ cursosOptions: Curso[] }>(), 
+    'Load Cursos Options Failure': props<{ error: any }>(),
+
     'Create Curso': props<{ nombre: string; modalidad: string; profesor: string }>(),
     'Create Curso Success': props<{ curso: Curso }>(),
     'Create Curso Failure': props<{ error: Error }>(),

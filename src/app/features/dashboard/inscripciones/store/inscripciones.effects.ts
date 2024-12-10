@@ -9,7 +9,7 @@ import { CursosService } from '../../../../core/services/cursos.service';
 
 @Injectable()
 export class InscripcionesEffects {
-  // Declaraciones de las propiedades de los efectos
+  // Explicitly declared properties for effects
   loadInscripciones$: Actions<Action<string>>;
   createInscripcion$: Actions<Action<string>>;
   createInscripcionSuccess$: Actions<Action<string>>;
@@ -23,7 +23,7 @@ export class InscripcionesEffects {
     private alumnosService: AlumnosService,
     private cursosService: CursosService
   ) {
-    // Efecto: Cargar inscripciones
+    // Load Inscripciones
     this.loadInscripciones$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.loadInscripciones),
@@ -40,7 +40,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Efecto: Crear inscripción
+    // Create Inscripcion
     this.createInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.createInscripcion),
@@ -62,7 +62,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Efecto: Crear inscripción exitosa y recargar inscripciones
+    // Handle Create Inscripcion Success
     this.createInscripcionSuccess$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.createInscripcionSuccess),
@@ -70,7 +70,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Efecto: Editar inscripción
+    // Edit Inscripcion
     this.editInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.editInscripcion),
@@ -78,9 +78,7 @@ export class InscripcionesEffects {
           this.inscripcionesService
             .updateInscripcionById(action.inscripcion.id, action.inscripcion)
             .pipe(
-              map(() =>
-                InscripcionesActions.loadInscripciones() // Recargar todas las inscripciones
-              ),
+              map(() => InscripcionesActions.loadInscripciones()),
               catchError((error) =>
                 of(InscripcionesActions.editInscripcionFailure({ error }))
               )
@@ -88,10 +86,8 @@ export class InscripcionesEffects {
         )
       )
     );
-    
-    
 
-    // Efecto: Eliminar inscripción
+    // Delete Inscripcion
     this.deleteInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.deleteInscripcion),
@@ -108,7 +104,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Efecto: Cargar opciones de alumnos y cursos
+    // Load Alumnos and Cursos Options
     this.loadAlumnosAndCursosOptions$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.loadAlumnosAndCursosOptions),
@@ -124,12 +120,13 @@ export class InscripcionesEffects {
               })
             ),
             catchError((error) =>
-              of(InscripcionesActions.loadAlumnosAndCursosOptionsFailure({ error }))
+              of(InscripcionesActions.loadAlumnosAndCursosOptionsFailure({
+                error,
+              }))
             )
           )
         )
       )
     );
-    
   }
 }

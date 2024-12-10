@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAlumnos from './alumnos.reducer';
 
-// Selector para acceder al estado de alumnos usando el feature key
+// Selector base para el estado de alumnos
 export const selectAlumnosState = createFeatureSelector<fromAlumnos.AlumnosState>(
-  fromAlumnos.alumnosFeatureKey  // Usamos alumnosFeatureKey aquí
+  fromAlumnos.alumnosFeatureKey
 );
 
 // Selector para obtener la lista de alumnos
@@ -18,14 +18,20 @@ export const selectAlumnosOptions = createSelector(
   (state) => state.alumnosOptions
 );
 
-// Selector para obtener el error de carga
-export const selectLoadAlumnosError = createSelector(
-  selectAlumnosState,
-  (state) => state.error
-);
-
-// Selector para verificar si se está cargando
+// Selector para verificar si los alumnos están cargándose
 export const selectIsLoadingAlumnos = createSelector(
   selectAlumnosState,
   (state) => state.loading
+);
+
+// Selector para verificar si las opciones de alumnos están cargándose
+export const selectIsLoadingAlumnosOptions = createSelector(
+  selectAlumnosState,
+  (state) => state.loadingOptions
+);
+
+// Selector para obtener errores de carga relacionados con alumnos
+export const selectAlumnosError = createSelector(
+  selectAlumnosState,
+  (state) => state.error
 );

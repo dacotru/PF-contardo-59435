@@ -1,8 +1,6 @@
 
 <h1 mat-dialog-title appTitles>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h1>
-
 <mat-divider class="pb-3"></mat-divider>
-
 <div mat-dialog-content>
   <form [formGroup]="inscripcionForm" (ngSubmit)="onSave()">
     <mat-form-field class="example-form-field w-100 mb-2">
@@ -19,7 +17,7 @@
         Seleccionar un alumno es obligatorio.
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Curso</mat-label>
       <mat-select formControlName="cursoId">
@@ -31,10 +29,8 @@
         Seleccionar un curso es obligatorio.
       </mat-error>
     </mat-form-field>
-  
     <button type="submit" mat-flat-button color="primary" [disabled]="inscripcionForm.invalid">
       Guardar
     </button>
   </form>
-  
 </div>

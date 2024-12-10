@@ -6,8 +6,9 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../../alumnos/models';
 import { Curso } from '../../cursos/models';
 import { Inscripcion } from '../models';
-import { selectAlumnosOptions, selectCursosOptions } from '../store/inscripciones.selectors';
 import { InscripcionesActions } from '../store/inscripciones.actions';
+import { selectAlumnos } from '../../alumnos/store/alumnos.selectors';
+import { selectAllCursos } from '../../cursos/store/cursos.selectors';
 
 @Component({
   selector: 'app-inscripciones-dialog',
@@ -30,8 +31,8 @@ export class InscripcionesDialogComponent implements OnInit {
       cursoId: ['', [Validators.required]],
     });
 
-    this.alumnoOptions$ = this.store.select(selectAlumnosOptions);
-    this.cursoOptions$ = this.store.select(selectCursosOptions);
+    this.alumnoOptions$ = this.store.select(selectAlumnos);
+    this.cursoOptions$ = this.store.select(selectAllCursos);
   }
 
   ngOnInit(): void {

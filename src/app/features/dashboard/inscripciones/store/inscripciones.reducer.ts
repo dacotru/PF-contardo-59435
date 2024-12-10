@@ -5,14 +5,19 @@ import { Inscripcion } from '../models/';
 import { Alumno } from '../../alumnos/models/';
 import { Curso } from '../../cursos/models/';
 
+// Feature Key
+export const inscripcionesFeatureKey = 'inscripciones';
+
+// Interface for State
 export interface InscripcionesState {
-  inscripciones: Inscripcion[];        // Lista de inscripciones
-  alumnosOptions: Alumno[];           // Opciones de alumnos disponibles
-  cursosOptions: Curso[];             // Opciones de cursos disponibles
-  isLoadingInscripciones: boolean;    // Estado de carga
-  loadInscripcionesError: Error | null; // Error en la carga de inscripciones
+  inscripciones: Inscripcion[]; // List of inscripciones
+  alumnosOptions: Alumno[];    // Available alumnos for options
+  cursosOptions: Curso[];      // Available cursos for options
+  isLoadingInscripciones: boolean; // Loading state for inscripciones
+  loadInscripcionesError: Error | null; // Error during load operations
 }
 
+// Initial State
 export const initialState: InscripcionesState = {
   inscripciones: [],
   alumnosOptions: [],
@@ -21,19 +26,20 @@ export const initialState: InscripcionesState = {
   loadInscripcionesError: null,
 };
 
+// Reducer
 export const inscripcionesReducer = createReducer(
   initialState,
 
-  // Cargar inscripciones
+  // Load Inscripciones
   on(InscripcionesActions.loadInscripciones, (state) => ({
     ...state,
     isLoadingInscripciones: true,
+    loadInscripcionesError: null, // Clear previous errors
   })),
   on(InscripcionesActions.loadInscripcionesSuccess, (state, { inscripciones }) => ({
     ...state,
     inscripciones,
     isLoadingInscripciones: false,
-    loadInscripcionesError: null,
   })),
   on(InscripcionesActions.loadInscripcionesFailure, (state, { error }) => ({
     ...state,
@@ -41,13 +47,13 @@ export const inscripcionesReducer = createReducer(
     loadInscripcionesError: error,
   })),
 
-  // Crear inscripción
+  // Create Inscripcion
   on(InscripcionesActions.createInscripcionSuccess, (state, { inscripcion }) => ({
     ...state,
     inscripciones: [...state.inscripciones, inscripcion],
   })),
 
-  // Editar inscripción
+  // Edit Inscripcion
   on(InscripcionesActions.editInscripcionSuccess, (state, { inscripcion }) => ({
     ...state,
     inscripciones: state.inscripciones.map((i) =>
@@ -55,13 +61,13 @@ export const inscripcionesReducer = createReducer(
     ),
   })),
 
-  // Eliminar inscripción
+  // Delete Inscripcion
   on(InscripcionesActions.deleteInscripcionSuccess, (state, { id }) => ({
     ...state,
     inscripciones: state.inscripciones.filter((i) => i.id !== id),
   })),
 
-  // Cargar opciones de alumnos y cursos
+  // Load Alumnos and Cursos Options
   on(InscripcionesActions.loadAlumnosAndCursosOptionsSuccess, (state, { alumnos, cursos }) => ({
     ...state,
     alumnosOptions: alumnos,
@@ -69,11 +75,14 @@ export const inscripcionesReducer = createReducer(
   })),
   on(InscripcionesActions.loadAlumnosAndCursosOptionsFailure, (state, { error }) => ({
     ...state,
-    loadInscripcionesError: error,
+    loadInscripcionesError: error, // Retain the existing inscripciones state
+    alumnosOptions: [], // Clear affected options
+    cursosOptions: [],
   }))
 );
 
+// Feature Registration
 export const inscripcionesFeature = createFeature({
-  name: 'inscripciones',
+  name: inscripcionesFeatureKey,
   reducer: inscripcionesReducer,
 });

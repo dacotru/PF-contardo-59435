@@ -12,6 +12,7 @@ export class AlumnosEffects {
   createAlumnoSuccess$: Actions<Action<string>>;
   editAlumno$: Actions<Action<string>>;
   deleteAlumno$: Actions<Action<string>>;
+  
 
   constructor(private actions$: Actions, private alumnosService: AlumnosService) {
     this.loadAlumnos$ = createEffect(() => {
@@ -27,6 +28,7 @@ export class AlumnosEffects {
         )
       );
     });
+
 
     this.createAlumno$ = createEffect(() => {
       return this.actions$.pipe(

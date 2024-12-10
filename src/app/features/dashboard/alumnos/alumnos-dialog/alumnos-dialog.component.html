@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>{{ data ? 'Editar Alumno' : 'Agregar Alumno' }}</h2>
+<h2 mat-dialog-title appTitles>{{ data ? 'Editar Alumno' : 'Agregar Alumno' }}</h2>
+<mat-divider class="pb-3"></mat-divider>
 <mat-dialog-content>
   <form [formGroup]="alumnoForm">
     <mat-form-field class="example-form-field w-100 mb-2">
@@ -8,7 +9,6 @@
         El nombre es obligatorio.
       </mat-error>
     </mat-form-field>
-
     <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Apellido</mat-label>
       <input matInput formControlName="lastName" placeholder="Ingrese el apellido" />
@@ -16,11 +16,18 @@
         El apellido es obligatorio.
       </mat-error>
     </mat-form-field>
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput formControlName="mail" type="email" />
+      <mat-error *ngIf="alumnoForm.get('mail')?.hasError('required')">
+        El correo electrónico es obligatorio.
+      </mat-error>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-raised-button color="primary" [disabled]="alumnoForm.invalid" (click)="save()">
+  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="alumnoForm.invalid" (click)="save()">
     Guardar
   </button>
 </mat-dialog-actions>

@@ -49,6 +49,13 @@ body {
 }
 
 .mat-mdc-form-field-error {
-  padding-bottom: 1rem;
-  color: darkred!important;
+  color: #29cec5!important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--invalid .mdc-line-ripple::before {
+  border-bottom-color: aquamarine!important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--invalid .mdc-floating-label {
+  color: #3cafaa !important;
 }
