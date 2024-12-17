@@ -39,22 +39,10 @@
       "mail": "edda.castel@mail.it"
     },
     {
-      "id": "06a1",
-      "firstName": "Fran",
-      "lastName": "Contardo",
-      "mail": "fran.contardo@example.es"
-    },
-    {
       "id": "7313",
       "firstName": "María",
       "lastName": "Truffello",
       "mail": "maria.truffello@mail.cl"
-    },
-    {
-      "id": "c18e",
-      "firstName": "Valeria",
-      "lastName": "Pinheiro",
-      "mail": "valeria.pinheiro@example.br"
     },
     {
       "id": "c215",
@@ -76,18 +64,6 @@
     }
   ],
   "cursos": [
-    {
-      "id": "xk7pqr",
-      "nombre": "Desarrollo Web Avanzado",
-      "modalidad": "Vespertino",
-      "profesor": "Ana López"
-    },
-    {
-      "id": "vl12ef",
-      "nombre": "Bases de Datos",
-      "modalidad": "Diurno",
-      "profesor": "Carlos García"
-    },
     {
       "id": "hj78ty",
       "nombre": "Inteligencia Artificial",
@@ -132,11 +108,6 @@
       },
       "alumnoNombre": "María Truffello",
       "cursoNombre": "Filosofía "
-    },
-    {
-      "id": "88d0",
-      "alumnoId": "c18e",
-      "cursoId": "vl12ef"
     },
     {
       "id": "78e0",
