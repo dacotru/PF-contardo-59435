@@ -52,15 +52,9 @@
     },
     {
       "id": "8cc6",
-      "firstName": "Victor ",
+      "firstName": "Victor",
       "lastName": "Jara",
       "mail": "jazzeme@mail.cl"
-    },
-    {
-      "id": "5f8c",
-      "firstName": "Bengi",
-      "lastName": "Contrufa",
-      "mail": "benja@mino.cl"
     }
   ],
   "cursos": [
@@ -84,7 +78,7 @@
     },
     {
       "id": "68ed",
-      "nombre": "Filosofía ",
+      "nombre": "Filosofía",
       "modalidad": "Vespertino",
       "profesor": "Giovanni Longo"
     }
@@ -93,78 +87,22 @@
     {
       "id": "c17e",
       "alumnoId": "7313",
-      "cursoId": "hj78ty",
-      "alumno": {
-        "id": "7313",
-        "firstName": "María",
-        "lastName": "Truffello",
-        "mail": "maria.truffello@mail.cl"
-      },
-      "curso": {
-        "id": "68ed",
-        "nombre": "Filosofía ",
-        "modalidad": "Vespertino",
-        "profesor": "Giovanni Longo"
-      },
-      "alumnoNombre": "María Truffello",
-      "cursoNombre": "Filosofía "
+      "cursoId": "hj78ty"
     },
     {
       "id": "78e0",
       "alumnoId": "4937",
-      "cursoId": "zt45uo",
-      "alumno": {
-        "id": "c215",
-        "firstName": "Sukha",
-        "lastName": "Maria",
-        "mail": "sukha@maria.cl"
-      },
-      "curso": {
-        "id": "68ed",
-        "nombre": "Filosofía ",
-        "modalidad": "Vespertino",
-        "profesor": "Giovanni Longo"
-      },
-      "alumnoNombre": "Sukha Maria",
-      "cursoNombre": "Filosofía "
+      "cursoId": "zt45uo"
     },
     {
       "id": "3bc6",
-      "alumnoId": "5f8c",
-      "cursoId": "72ea",
-      "alumno": {
-        "id": "5f8c",
-        "firstName": "Bengi",
-        "lastName": "Contrufa",
-        "mail": "benja@mino.cl"
-      },
-      "curso": {
-        "id": "68ed",
-        "nombre": "Filosofía ",
-        "modalidad": "Vespertino",
-        "profesor": "Giovanni Longo"
-      },
-      "alumnoNombre": "Bengi Contrufa",
-      "cursoNombre": "Filosofía "
+      "alumnoId": null,
+      "cursoId": "72ea"
     },
     {
       "id": "36e5",
       "alumnoId": "8cc6",
-      "cursoId": "68ed",
-      "alumno": {
-        "id": "06a1",
-        "firstName": "Fran",
-        "lastName": "Contardo",
-        "mail": "fran.contardo@example.es"
-      },
-      "curso": {
-        "id": "68ed",
-        "nombre": "Filosofía ",
-        "modalidad": "Vespertino",
-        "profesor": "Giovanni Longo"
-      },
-      "alumnoNombre": "Fran Contardo",
-      "cursoNombre": "Filosofía "
+      "cursoId": "68ed"
     }
   ]
 }
