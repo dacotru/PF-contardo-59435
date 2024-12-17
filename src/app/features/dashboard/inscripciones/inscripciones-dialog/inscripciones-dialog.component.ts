@@ -3,12 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Alumno } from '../../alumnos/models';
-import { Curso } from '../../cursos/models';
-import { Inscripcion } from '../models';
+
+import { selectAlumnosOptions, selectCursosOptions } from '../store/inscripciones.selectors';
+import { Inscripcion } from '../models/';
 import { InscripcionesActions } from '../store/inscripciones.actions';
-import { selectAlumnos } from '../../alumnos/store/alumnos.selectors';
-import { selectAllCursos } from '../../cursos/store/cursos.selectors';
 
 @Component({
   selector: 'app-inscripciones-dialog',
@@ -17,8 +15,8 @@ import { selectAllCursos } from '../../cursos/store/cursos.selectors';
 })
 export class InscripcionesDialogComponent implements OnInit {
   inscripcionForm: FormGroup;
-  alumnoOptions$: Observable<Alumno[]>;
-  cursoOptions$: Observable<Curso[]>;
+  alumnosOptions$: Observable<any[]>;
+  cursosOptions$: Observable<any[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -27,40 +25,26 @@ export class InscripcionesDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Inscripcion | null
   ) {
     this.inscripcionForm = this.fb.group({
-      alumnoId: ['', [Validators.required]],
-      cursoId: ['', [Validators.required]],
+      alumnoId: [this.data?.alumnoId || '', Validators.required],
+      cursoId: [this.data?.cursoId || '', Validators.required],
     });
 
-    this.alumnoOptions$ = this.store.select(selectAlumnos);
-    this.cursoOptions$ = this.store.select(selectAllCursos);
+    this.alumnosOptions$ = this.store.select(selectAlumnosOptions);
+    this.cursosOptions$ = this.store.select(selectCursosOptions);
   }
 
   ngOnInit(): void {
-    // Despachar la acción para asegurar que las opciones estén cargadas
     this.store.dispatch(InscripcionesActions.loadAlumnosAndCursosOptions());
-
-    // Si estamos en modo edición, inicializar el formulario con los datos de la inscripción
-    if (this.data) {
-      this.inscripcionForm.patchValue({
-        alumnoId: this.data.alumnoId,
-        cursoId: this.data.cursoId,
-      });
-    }
   }
 
   onSave(): void {
     if (this.inscripcionForm.valid) {
       this.dialogRef.close({
-        id: this.data?.id, // Incluye el ID solo si estamos editando
-        alumnoId: this.inscripcionForm.value.alumnoId,
-        cursoId: this.inscripcionForm.value.cursoId,
+        id: this.data?.id,
+        ...this.inscripcionForm.value,
       });
-    } else {
-      this.inscripcionForm.markAllAsTouched(); // Marca los campos como tocados para mostrar errores
     }
   }
-  
-  
 
   onCancel(): void {
     this.dialogRef.close();

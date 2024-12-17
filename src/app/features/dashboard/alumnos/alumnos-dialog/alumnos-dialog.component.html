@@ -9,6 +9,7 @@
         El nombre es obligatorio.
       </mat-error>
     </mat-form-field>
+
     <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Apellido</mat-label>
       <input matInput formControlName="lastName" placeholder="Ingrese el apellido" />
@@ -16,6 +17,7 @@
         El apellido es obligatorio.
       </mat-error>
     </mat-form-field>
+
     <mat-form-field class="example-form-field w-100 mb-2">
       <mat-label>Correo Electrónico</mat-label>
       <input matInput formControlName="mail" type="email" />
@@ -26,7 +28,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-flat-button color="primary" [disabled]="alumnoForm.invalid" (click)="save()">
     Guardar
   </button>

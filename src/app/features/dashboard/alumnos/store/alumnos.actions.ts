@@ -8,11 +8,7 @@ export const AlumnosActions = createActionGroup({
     'Load Alumnos Success': props<{ alumnos: Alumno[] }>(),
     'Load Alumnos Failure': props<{ error: any }>(),
 
-    'Load Alumnos Options': emptyProps(),
-    'Load Alumnos Options Success': props<{ alumnosOptions: Alumno[] }>(),
-    'Load Alumnos Options Failure': props<{ error: any }>(),
-
-    'Create Alumno': props<{ alumno: Alumno }>(),
+    'Create Alumno': props<{ alumno: Omit<Alumno, 'id'> }>(),
     'Create Alumno Success': props<{ alumno: Alumno }>(),
     'Create Alumno Failure': props<{ error: any }>(),
 

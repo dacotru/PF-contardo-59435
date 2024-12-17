@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, of, forkJoin } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { catchError, concatMap, forkJoin, map, of } from 'rxjs';
+
 import { InscripcionesActions } from './inscripciones.actions';
 import { InscripcionesService } from '../../../../core/services/inscripciones.service';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
@@ -9,13 +9,11 @@ import { CursosService } from '../../../../core/services/cursos.service';
 
 @Injectable()
 export class InscripcionesEffects {
-  // Explicitly declared properties for effects
-  loadInscripciones$: Actions<Action<string>>;
-  createInscripcion$: Actions<Action<string>>;
-  createInscripcionSuccess$: Actions<Action<string>>;
-  editInscripcion$: Actions<Action<string>>;
-  deleteInscripcion$: Actions<Action<string>>;
-  loadAlumnosAndCursosOptions$: Actions<Action<string>>;
+  loadInscripciones$: any;
+  createInscripcion$: any;
+  editInscripcion$: any;
+  deleteInscripcion$: any;
+  loadAlumnosAndCursosOptions$: any;
 
   constructor(
     private actions$: Actions,
@@ -23,7 +21,7 @@ export class InscripcionesEffects {
     private alumnosService: AlumnosService,
     private cursosService: CursosService
   ) {
-    // Load Inscripciones
+    // Cargar inscripciones
     this.loadInscripciones$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.loadInscripciones),
@@ -40,7 +38,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Create Inscripcion
+    // Crear inscripción
     this.createInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.createInscripcion),
@@ -51,9 +49,7 @@ export class InscripcionesEffects {
               cursoId: action.cursoId,
             })
             .pipe(
-              map((inscripcion) =>
-                InscripcionesActions.createInscripcionSuccess({ inscripcion })
-              ),
+              map(() => InscripcionesActions.loadInscripciones()), // Refresca la lista
               catchError((error) =>
                 of(InscripcionesActions.createInscripcionFailure({ error }))
               )
@@ -62,15 +58,7 @@ export class InscripcionesEffects {
       )
     );
 
-    // Handle Create Inscripcion Success
-    this.createInscripcionSuccess$ = createEffect(() =>
-      this.actions$.pipe(
-        ofType(InscripcionesActions.createInscripcionSuccess),
-        map(() => InscripcionesActions.loadInscripciones())
-      )
-    );
-
-    // Edit Inscripcion
+    // Editar inscripción
     this.editInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.editInscripcion),
@@ -78,7 +66,7 @@ export class InscripcionesEffects {
           this.inscripcionesService
             .updateInscripcionById(action.inscripcion.id, action.inscripcion)
             .pipe(
-              map(() => InscripcionesActions.loadInscripciones()),
+              map(() => InscripcionesActions.loadInscripciones()), // Refresca la lista
               catchError((error) =>
                 of(InscripcionesActions.editInscripcionFailure({ error }))
               )
@@ -87,15 +75,13 @@ export class InscripcionesEffects {
       )
     );
 
-    // Delete Inscripcion
+    // Eliminar inscripción
     this.deleteInscripcion$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.deleteInscripcion),
         concatMap((action) =>
           this.inscripcionesService.removeInscripcionById(action.id).pipe(
-            map(() =>
-              InscripcionesActions.deleteInscripcionSuccess({ id: action.id })
-            ),
+            map(() => InscripcionesActions.loadInscripciones()), // Refresca la lista
             catchError((error) =>
               of(InscripcionesActions.deleteInscripcionFailure({ error }))
             )
@@ -104,25 +90,27 @@ export class InscripcionesEffects {
       )
     );
 
-    // Load Alumnos and Cursos Options
+    // Cargar opciones de alumnos y cursos
     this.loadAlumnosAndCursosOptions$ = createEffect(() =>
       this.actions$.pipe(
         ofType(InscripcionesActions.loadAlumnosAndCursosOptions),
         concatMap(() =>
-          forkJoin({
-            alumnos: this.alumnosService.getAlumnos(),
-            cursos: this.cursosService.getCursos(),
-          }).pipe(
-            map(({ alumnos, cursos }) =>
+          forkJoin([
+            this.alumnosService.getAlumnos(),
+            this.cursosService.getCursos(),
+          ]).pipe(
+            map(([alumnos, cursos]) =>
               InscripcionesActions.loadAlumnosAndCursosOptionsSuccess({
                 alumnos,
                 cursos,
               })
             ),
             catchError((error) =>
-              of(InscripcionesActions.loadAlumnosAndCursosOptionsFailure({
-                error,
-              }))
+              of(
+                InscripcionesActions.loadAlumnosAndCursosOptionsFailure({
+                  error,
+                })
+              )
             )
           )
         )

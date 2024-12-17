@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AlumnosActions } from './store/alumnos.actions';
-import { selectAlumnos, selectAlumnosError } from './store/alumnos.selectors';
-import { Alumno } from './models';
+import { selectAllAlumnos, selectIsLoadingAlumnos } from './store/alumnos.selectors';
+import { Alumno } from './models/';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
 
 @Component({
@@ -15,33 +15,21 @@ import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.componen
   styleUrls: ['./alumnos.component.scss'],
 })
 export class AlumnosComponent implements OnInit {
-  // DataSource para la tabla de alumnos
   dataSource = new MatTableDataSource<Alumno>([]);
-
-  // Columnas a mostrar en la tabla
   displayedColumns: string[] = ['id', 'nombreCompleto', 'mail', 'acciones'];
-
-  // Observables para los alumnos y errores
-  alumnos$: Observable<Alumno[]>;
-  loadError$: Observable<any>;
+  isLoading$: Observable<boolean>;
 
   constructor(private store: Store, private dialog: MatDialog) {
-    // Inicializando los observables
-    this.alumnos$ = this.store.select(selectAlumnos);
-    this.loadError$ = this.store.select(selectAlumnosError);
+    this.isLoading$ = this.store.select(selectIsLoadingAlumnos);
   }
 
   ngOnInit(): void {
-    // Cargar alumnos desde el store
     this.store.dispatch(AlumnosActions.loadAlumnos());
-
-    // Suscribirse a los alumnos y actualizar el dataSource
-    this.alumnos$.subscribe((alumnos) => {
-      this.dataSource.data = alumnos ?? []; // Si alumnos es null, asignamos un arreglo vacío
+    this.store.select(selectAllAlumnos).subscribe((alumnos) => {
+      this.dataSource.data = alumnos;
     });
   }
 
-  // Abre el diálogo para agregar o editar un alumno
   openDialog(alumno?: Alumno): void {
     const dialogRef = this.dialog.open(AlumnosDialogComponent, {
       width: '400px',
@@ -51,21 +39,16 @@ export class AlumnosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (alumno) {
-          // Editar alumno existente
-          this.store.dispatch(
-            AlumnosActions.editAlumno({ alumno: { ...alumno, ...result } })
-          );
+          this.store.dispatch(AlumnosActions.editAlumno({ alumno: { ...alumno, ...result } }));
         } else {
-          // Crear un nuevo alumno
           this.store.dispatch(AlumnosActions.createAlumno({ alumno: result }));
         }
       }
     });
   }
 
-  // Eliminar un alumno
   deleteAlumno(id: string): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este alumno?')) {
+    if (confirm('¿Estás seguro de eliminar este alumno?')) {
       this.store.dispatch(AlumnosActions.deleteAlumno({ id }));
     }
   }

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AlumnosComponent } from './alumnos.component';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
 import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from '../../../shared/shared.module';
+import { alumnosReducer } from './store/alumnos.reducer';
 import { AlumnosEffects } from './store/alumnos.effects';
 import { StoreModule } from '@ngrx/store';
-import { alumnosFeature } from './store/alumnos.reducer';
-import { SharedModule } from '../../../shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+
 
 @NgModule({
   declarations: [
@@ -18,8 +19,7 @@ import { SharedModule } from '../../../shared/shared.module';
     CommonModule,
     SharedModule,
     AlumnosRoutingModule,
-    StoreModule.forFeature(alumnosFeature),
-    EffectsModule.forFeature([AlumnosEffects]),
-  ],
+    StoreModule.forFeature('alumnos', alumnosReducer),
+    EffectsModule.forFeature([AlumnosEffects]),  ],
 })
 export class AlumnosModule {}

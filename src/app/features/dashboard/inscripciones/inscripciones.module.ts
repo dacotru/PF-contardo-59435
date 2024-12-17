@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InscripcionesComponent } from './inscripciones.component';
-import { SharedModule } from '../../../shared/shared.module';
-import { InscripcionesDialogComponent } from './inscripciones-dialog/inscripciones-dialog.component';
-import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { inscripcionesFeature } from './store/inscripciones.reducer';
+
+import { InscripcionesComponent } from './inscripciones.component';
+import { InscripcionesDialogComponent } from './inscripciones-dialog/inscripciones-dialog.component';
+import { InscripcionesRoutingModule } from './inscripciones-routing.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { inscripcionesReducer } from './store/inscripciones.reducer';
 import { InscripcionesEffects } from './store/inscripciones.effects';
 
 @NgModule({
@@ -18,7 +19,7 @@ import { InscripcionesEffects } from './store/inscripciones.effects';
     CommonModule,
     SharedModule,
     InscripcionesRoutingModule,
-    StoreModule.forFeature(inscripcionesFeature),
+    StoreModule.forFeature('inscripciones', inscripcionesReducer),
     EffectsModule.forFeature([InscripcionesEffects]),
   ],
 })

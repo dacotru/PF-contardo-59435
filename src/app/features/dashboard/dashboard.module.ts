@@ -7,6 +7,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { AlumnosModule } from './alumnos/alumnos.module';
+import { CursosModule } from './cursos/cursos.module';
+import { InscripcionesModule } from './inscripciones/inscripciones.module';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     MatToolbarModule,
     SharedModule,
     DashboardRoutingModule,
+    AlumnosModule,
+    CursosModule,
+    InscripcionesModule,
   ],
   exports: [
     ToolbarComponent,
     SidebarComponent,
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InscripcionesComponent } from './inscripciones.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: InscripcionesComponent,
-  },
+  { path: '', component: InscripcionesComponent },
 ];
 
 @NgModule({

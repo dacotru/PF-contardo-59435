@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { CursosActions } from './store/cursos.actions';
 import { selectAllCursos } from './store/cursos.selectors';
-import { Curso } from './models';
+import { Curso } from './models/';
 import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class CursosComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(CursosActions.loadCursos());
     this.cursos$.subscribe((cursos) => {
-      this.dataSource.data = cursos ?? [];
+      this.dataSource.data = cursos;
     });
   }
 
@@ -40,11 +40,9 @@ export class CursosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (curso) {
-          this.store.dispatch(
-            CursosActions.editCurso({ curso: { ...curso, ...result } })
-          );
+          this.store.dispatch(CursosActions.editCurso({ curso: { ...curso, ...result } }));
         } else {
-          this.store.dispatch(CursosActions.createCurso(result));
+          this.store.dispatch(CursosActions.createCurso({ curso: result }));
         }
       }
     });

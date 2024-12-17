@@ -1,27 +1,43 @@
-<h1 mat-dialog-title appTitles>{{ data ? 'Editar Curso' : 'Nuevo Curso' }}</h1>
+<h2 mat-dialog-title appTitles>{{ data ? 'Editar Curso' : 'Nuevo Curso' }}</h2>
 <mat-divider class="pb-3"></mat-divider>
-<div mat-dialog-content>
-  <form [formGroup]="cursoForm" (ngSubmit)="onSave()">
-    <mat-form-field class="example-form-field w-100 mb-2">
+
+<mat-dialog-content>
+  <form [formGroup]="cursoForm">
+    <!-- Campo Nombre -->
+    <mat-form-field class="w-100 mb-3">
       <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nombre" required>
+      <input matInput formControlName="nombre" placeholder="Ingrese el nombre del curso" />
+      <mat-error *ngIf="cursoForm.get('nombre')?.hasError('required')">
+        El nombre es obligatorio.
+      </mat-error>
     </mat-form-field>
-    
-    <mat-form-field class="example-form-field w-100 mb-2">
+
+    <!-- Campo Modalidad -->
+    <mat-form-field class="w-100 mb-3">
       <mat-label>Modalidad</mat-label>
-      <mat-select formControlName="modalidad" required>
+      <mat-select formControlName="modalidad">
         <mat-option value="Diurno">Diurno</mat-option>
         <mat-option value="Vespertino">Vespertino</mat-option>
       </mat-select>
+      <mat-error *ngIf="cursoForm.get('modalidad')?.hasError('required')">
+        Seleccionar la modalidad es obligatorio.
+      </mat-error>
     </mat-form-field>
-    
-    <mat-form-field class="example-form-field w-100 mb-2">
+
+    <!-- Campo Profesor -->
+    <mat-form-field class="w-100 mb-3">
       <mat-label>Profesor</mat-label>
-      <input matInput formControlName="profesor" required>
+      <input matInput formControlName="profesor" placeholder="Ingrese el nombre del profesor" />
+      <mat-error *ngIf="cursoForm.get('profesor')?.hasError('required')">
+        El nombre del profesor es obligatorio.
+      </mat-error>
     </mat-form-field>
   </form>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-flat-button color="primary" [disabled]="cursoForm.invalid" (click)="onSave()">Guardar</button>
-</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="warn" (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="cursoForm.invalid">
+    Guardar
+  </button>
+</mat-dialog-actions>

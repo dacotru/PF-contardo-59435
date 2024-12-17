@@ -1,78 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable, combineLatest } from 'rxjs';
 
 import { InscripcionesActions } from './store/inscripciones.actions';
 import {
-  selectIsLoadingInscripciones,
-  selectLoadInscripcionesError,
   selectInscripciones,
+  selectAlumnosOptions,
+  selectCursosOptions,
 } from './store/inscripciones.selectors';
-import { selectAlumnos } from '../alumnos/store/alumnos.selectors';
-import { selectAllCursos } from '../cursos/store/cursos.selectors';
 import { InscripcionesDialogComponent } from './inscripciones-dialog/inscripciones-dialog.component';
-import { Inscripcion } from './models';
-import { Alumno } from '../alumnos/models';
-import { Curso } from '../cursos/models';
+import { Inscripcion } from './models/';
 
 @Component({
   selector: 'app-inscripciones',
   templateUrl: './inscripciones.component.html',
+  styleUrls: ['./inscripciones.component.scss'],
 })
 export class InscripcionesComponent implements OnInit {
-  inscripciones$: Observable<Inscripcion[]>;
-  alumnos$: Observable<Alumno[]>;
-  cursos$: Observable<Curso[]>;
-  isLoading$: Observable<boolean>;
-  loadError$: Observable<Error | null>;
+  dataSource = new MatTableDataSource<any>([]);
+  displayedColumns: string[] = ['id', 'alumnoNombre', 'cursoNombre', 'acciones'];
 
-  inscripcionForm: FormGroup;
-  dataSource = new MatTableDataSource<Inscripcion>([]);
-  displayedColumns: string[] = ['id', 'alumnoId', 'cursoId', 'acciones'];
-
-  constructor(
-    private store: Store,
-    private dialog: MatDialog,
-    private fb: FormBuilder
-  ) {
-    // Form initialization
-    this.inscripcionForm = this.fb.group({
-      alumnoId: [null, [Validators.required]],
-      cursoId: [null, [Validators.required]],
-    });
-
-    // State selectors
-    this.inscripciones$ = this.store.select(selectInscripciones);
-    this.alumnos$ = this.store.select(selectAlumnos);
-    this.cursos$ = this.store.select(selectAllCursos);
-    this.isLoading$ = this.store.select(selectIsLoadingInscripciones);
-    this.loadError$ = this.store.select(selectLoadInscripcionesError);
-  }
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    // Dispatch actions to load necessary data
-    this.store.dispatch(InscripcionesActions.loadInscripciones());
     this.store.dispatch(InscripcionesActions.loadAlumnosAndCursosOptions());
+    this.store.dispatch(InscripcionesActions.loadInscripciones());
 
-    // Sync dataSource with the store's inscripciones state
-    this.inscripciones$.subscribe((inscripciones) => {
-      this.dataSource.data = inscripciones || [];
+    combineLatest([
+      this.store.select(selectInscripciones),
+      this.store.select(selectAlumnosOptions),
+      this.store.select(selectCursosOptions),
+    ]).subscribe(([inscripciones, alumnos, cursos]) => {
+      this.dataSource.data = inscripciones.map((inscripcion) => ({
+        ...inscripcion,
+        alumnoNombre: `${alumnos.find((a) => a.id === inscripcion.alumnoId)?.firstName || ''} ${
+          alumnos.find((a) => a.id === inscripcion.alumnoId)?.lastName || ''
+        }`,
+        cursoNombre: cursos.find((c) => c.id === inscripcion.cursoId)?.nombre || '',
+      }));
     });
-  }
-
-  onSubmit(): void {
-    if (this.inscripcionForm.invalid) {
-      this.inscripcionForm.markAllAsTouched();
-    } else {
-      const { alumnoId, cursoId } = this.inscripcionForm.value;
-      this.store.dispatch(
-        InscripcionesActions.createInscripcion({ alumnoId, cursoId })
-      );
-      this.inscripcionForm.reset();
-    }
   }
 
   openDialog(inscripcion?: Inscripcion): void {

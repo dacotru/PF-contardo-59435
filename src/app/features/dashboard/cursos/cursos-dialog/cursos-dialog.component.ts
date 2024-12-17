@@ -6,6 +6,7 @@ import { Curso } from '../models/';
 @Component({
   selector: 'app-cursos-dialog',
   templateUrl: './cursos-dialog.component.html',
+  styleUrls: ['./cursos-dialog.component.scss'],
 })
 export class CursosDialogComponent implements OnInit {
   cursoForm: FormGroup;
@@ -15,23 +16,23 @@ export class CursosDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<CursosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Curso
   ) {
-    // Inicialización del formulario con los controles: 'nombre', 'modalidad' y 'profesor'
+    // Inicialización del formulario
     this.cursoForm = this.fb.group({
-      nombre: [data?.nombre || '', Validators.required],  // Control 'nombre'
-      modalidad: [data?.modalidad || '', Validators.required],  // Control 'modalidad'
-      profesor: [data?.profesor || '', Validators.required],  // Control 'profesor'
+      nombre: [data?.nombre || '', Validators.required],
+      modalidad: [data?.modalidad || '', Validators.required],
+      profesor: [data?.profesor || '', Validators.required],
     });
   }
 
   ngOnInit(): void {}
 
-  onSave() {
+  onSave(): void {
     if (this.cursoForm.valid) {
-      this.dialogRef.close(this.cursoForm.value);
+      this.dialogRef.close({ ...this.data, ...this.cursoForm.value });
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

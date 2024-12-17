@@ -1,39 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Inscripcion } from '../../features/dashboard/inscripciones/models';
+import { Inscripcion } from '../../features/dashboard/inscripciones/models/';
 import { environment } from '../../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class InscripcionesService {
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl = `${environment.apiBaseURL}/inscripciones`;
 
+  constructor(private http: HttpClient) {}
+
+  // Obtener todas las inscripciones
   getInscripciones(): Observable<Inscripcion[]> {
-    return this.httpClient.get<Inscripcion[]>(
-      `${environment.apiBaseURL}/inscripciones?_embed=alumno&_embed=curso`
-    );
+    return this.http.get<Inscripcion[]>(`${this.apiUrl}?_embed=alumno&_embed=curso`);
   }
 
-  createInscripcion(
-    payload: Omit<Inscripcion, 'id' | 'alumno' | 'curso'>
-  ): Observable<Inscripcion> {
-    return this.httpClient.post<Inscripcion>(
-      `${environment.apiBaseURL}/inscripciones`,
-      payload
-    );
+  // Crear una nueva inscripción
+  createInscripcion(payload: { alumnoId: string; cursoId: string }): Observable<Inscripcion> {
+    return this.http.post<Inscripcion>(this.apiUrl, payload);
   }
 
-  updateInscripcionById(id: string, update: Partial<Inscripcion & { alumnoNombre?: string; cursoNombre?: string }>): Observable<Inscripcion> {
-    const { alumno, curso, alumnoNombre, cursoNombre, ...payload } = update;
-    return this.httpClient.patch<Inscripcion>(
-      `${environment.apiBaseURL}/inscripciones/${id}`,
-      payload
-    );
+  // Editar una inscripción por ID
+  updateInscripcionById(id: string, payload: Partial<Inscripcion>): Observable<Inscripcion> {
+    return this.http.patch<Inscripcion>(`${this.apiUrl}/${id}`, payload);
   }
 
+  // Eliminar una inscripción por ID
   removeInscripcionById(id: string): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${environment.apiBaseURL}/inscripciones/${id}`
-    );
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

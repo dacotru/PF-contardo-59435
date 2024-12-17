@@ -8,24 +8,23 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class AlumnosService {
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl = `${environment.apiBaseURL}/alumnos`;
+
+  constructor(private http: HttpClient) {}
 
   getAlumnos(): Observable<Alumno[]> {
-    return this.httpClient.get<Alumno[]>(`${environment.apiBaseURL}/alumnos`);
+    return this.http.get<Alumno[]>(this.apiUrl);
   }
 
-  createAlumno(payload: Omit<Alumno, 'id'>): Observable<Alumno> {
-    return this.httpClient.post<Alumno>(`${environment.apiBaseURL}/alumnos`, payload);
+  createAlumno(alumno: Omit<Alumno, 'id'>): Observable<Alumno> {
+    return this.http.post<Alumno>(this.apiUrl, alumno);
   }
 
-  updateAlumnoById(id: string, update: Partial<Alumno>): Observable<Alumno> {
-    return this.httpClient.patch<Alumno>(
-      `${environment.apiBaseURL}/alumnos/${id}`,
-      update
-    );
+  updateAlumnoById(id: string, alumno: Partial<Alumno>): Observable<Alumno> {
+    return this.http.put<Alumno>(`${this.apiUrl}/${id}`, alumno);
   }
 
   removeAlumnoById(id: string): Observable<void> {
-    return this.httpClient.delete<void>(`${environment.apiBaseURL}/alumnos/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

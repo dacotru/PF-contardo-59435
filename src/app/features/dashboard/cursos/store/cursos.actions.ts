@@ -6,22 +6,18 @@ export const CursosActions = createActionGroup({
   events: {
     'Load Cursos': emptyProps(),
     'Load Cursos Success': props<{ cursos: Curso[] }>(),
-    'Load Cursos Failure': props<{ error: Error }>(),
+    'Load Cursos Failure': props<{ error: any }>(),
 
-    'Load Cursos Options': emptyProps(),
-    'Load Cursos Options Success': props<{ cursosOptions: Curso[] }>(), 
-    'Load Cursos Options Failure': props<{ error: any }>(),
-
-    'Create Curso': props<{ nombre: string; modalidad: string; profesor: string }>(),
+    'Create Curso': props<{ curso: Curso }>(),
     'Create Curso Success': props<{ curso: Curso }>(),
-    'Create Curso Failure': props<{ error: Error }>(),
+    'Create Curso Failure': props<{ error: any }>(),
 
     'Edit Curso': props<{ curso: Curso }>(),
     'Edit Curso Success': props<{ curso: Curso }>(),
-    'Edit Curso Failure': props<{ error: Error }>(),
+    'Edit Curso Failure': props<{ error: any }>(),
 
-    'Delete Curso': props<{ id: string }>(), 
+    'Delete Curso': props<{ id: string }>(),
     'Delete Curso Success': props<{ id: string }>(),
-    'Delete Curso Failure': props<{ error: Error }>(),
+    'Delete Curso Failure': props<{ error: any }>(),
   },
 });

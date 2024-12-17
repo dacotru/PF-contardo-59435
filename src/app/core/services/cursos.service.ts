@@ -8,27 +8,27 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class CursosService {
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl = `${environment.apiBaseURL}/cursos`;
 
-  // Obtener todos los cursos con relaciones de profesor y alumnos
+  constructor(private http: HttpClient) {}
+
+  // Cargar cursos
   getCursos(): Observable<Curso[]> {
-    return this.httpClient.get<Curso[]>(
-      `${environment.apiBaseURL}/cursos?_embed=profesor&_embed=alumnos`
-    );
+    return this.http.get<Curso[]>(this.apiUrl);
   }
 
-  // Crear un curso
-  createCurso(payload: Omit<Curso, 'id'>): Observable<Curso> {
-    return this.httpClient.post<Curso>(`${environment.apiBaseURL}/cursos`, payload);
+  // Crear curso
+  createCurso(curso: Curso): Observable<Curso> {
+    return this.http.post<Curso>(this.apiUrl, curso);
   }
 
-  // Editar un curso
-  updateCursoById(id: string, update: Partial<Curso>): Observable<Curso> {
-    return this.httpClient.patch<Curso>(`${environment.apiBaseURL}/cursos/${id}`, update);
+  // Editar curso
+  updateCursoById(id: string, curso: Curso): Observable<Curso> {
+    return this.http.put<Curso>(`${this.apiUrl}/${id}`, curso);
   }
 
-  // Eliminar un curso
+  // Eliminar curso
   removeCursoById(id: string): Observable<void> {
-    return this.httpClient.delete<void>(`${environment.apiBaseURL}/cursos/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

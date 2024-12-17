@@ -1,15 +1,13 @@
-
-<h1 mat-dialog-title appTitles>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h1>
+<h2 mat-dialog-title appTitles>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h2>
 <mat-divider class="pb-3"></mat-divider>
-<div mat-dialog-content>
-  <form [formGroup]="inscripcionForm" (ngSubmit)="onSave()">
-    <mat-form-field class="example-form-field w-100 mb-2">
+
+<mat-dialog-content>
+  <form [formGroup]="inscripcionForm">
+    <!-- Selección de Alumno -->
+    <mat-form-field class="w-100 mb-3">
       <mat-label>Alumno</mat-label>
-      <mat-select formControlName="alumnoId">
-        <mat-option
-          [value]="alumno.id"
-          *ngFor="let alumno of alumnoOptions$ | async"
-        >
+      <mat-select formControlName="alumnoId" required>
+        <mat-option *ngFor="let alumno of alumnosOptions$ | async" [value]="alumno.id">
           {{ alumno.firstName }} {{ alumno.lastName }}
         </mat-option>
       </mat-select>
@@ -18,10 +16,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-form-field w-100 mb-2">
+    <!-- Selección de Curso -->
+    <mat-form-field class="w-100 mb-3">
       <mat-label>Curso</mat-label>
-      <mat-select formControlName="cursoId">
-        <mat-option [value]="curso.id" *ngFor="let curso of cursoOptions$ | async">
+      <mat-select formControlName="cursoId" required>
+        <mat-option *ngFor="let curso of cursosOptions$ | async" [value]="curso.id">
           {{ curso.nombre }}
         </mat-option>
       </mat-select>
@@ -29,8 +28,12 @@
         Seleccionar un curso es obligatorio.
       </mat-error>
     </mat-form-field>
-    <button type="submit" mat-flat-button color="primary" [disabled]="inscripcionForm.invalid">
-      Guardar
-    </button>
   </form>
-</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="inscripcionForm.invalid">
+    Guardar
+  </button>
+</mat-dialog-actions>

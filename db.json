@@ -36,13 +36,13 @@
       "id": "4937",
       "firstName": "Edda",
       "lastName": "Castel",
-      "mail": "edda.castel@mail.cl"
+      "mail": "edda.castel@mail.it"
     },
     {
       "id": "06a1",
       "firstName": "Fran",
       "lastName": "Contardo",
-      "mail": "fran.contardo@example.com"
+      "mail": "fran.contardo@example.es"
     },
     {
       "id": "7313",
@@ -57,78 +57,81 @@
       "mail": "valeria.pinheiro@example.br"
     },
     {
-      "id": "3254",
-      "firstName": "Victor",
-      "lastName": "Jara",
-      "mail": "victor.jara@example.com"
+      "id": "c215",
+      "firstName": "Sukha",
+      "lastName": "Maria",
+      "mail": "sukha@maria.cl"
     },
     {
-      "id": "bac5",
-      "firstName": "Lenka",
-      "lastName": "Rios",
-      "mail": "lenka.rios@example.com"
+      "id": "8cc6",
+      "firstName": "Victor ",
+      "lastName": "Jara",
+      "mail": "jazzeme@mail.cl"
+    },
+    {
+      "id": "5f8c",
+      "firstName": "Bengi",
+      "lastName": "Contrufa",
+      "mail": "benja@mino.cl"
     }
   ],
   "cursos": [
     {
-      "id": "wi41dh",
-      "nombre": "Introducción a Programación",
-      "modalidad": "Vespertino",
-      "profesor": "Pato Pérez",
-      "createdAt": "2024-12-05T10:00:00.000Z",
-      "alumnos": []
-    },
-    {
       "id": "xk7pqr",
       "nombre": "Desarrollo Web Avanzado",
       "modalidad": "Vespertino",
-      "profesor": "Ana López",
-      "createdAt": "2024-12-05T11:00:00Z"
+      "profesor": "Ana López"
     },
     {
       "id": "vl12ef",
       "nombre": "Bases de Datos",
       "modalidad": "Diurno",
-      "profesor": "Carlos García",
-      "createdAt": "2024-12-05T12:00:00Z"
+      "profesor": "Carlos García"
     },
     {
       "id": "hj78ty",
       "nombre": "Inteligencia Artificial",
       "modalidad": "Diurno",
-      "profesor": "María Rodríguez",
-      "createdAt": "2024-12-05T13:00:00Z"
+      "profesor": "María Rodríguez"
     },
     {
       "id": "zt45uo",
       "nombre": "Diseño de Interfaces",
       "modalidad": "Vespertino",
-      "profesor": "Pedro Martínez",
-      "createdAt": "2024-12-05T14:00:00.000Z"
+      "profesor": "Pedro Martínez"
     },
     {
       "id": "72ea",
       "nombre": "Javascript",
       "modalidad": "Vespertino",
-      "profesor": "Pato Pérez",
-      "createdAt": "2024-12-05T15:00:00Z"
+      "profesor": "Pato Pérez"
+    },
+    {
+      "id": "68ed",
+      "nombre": "Filosofía ",
+      "modalidad": "Vespertino",
+      "profesor": "Giovanni Longo"
     }
   ],
   "inscripciones": [
     {
-      "id": "26d7",
-      "alumnoId": "4937",
-      "cursoId": "72ea"
-    },
-    {
-      "id": "2eb2",
-      "alumnoId": "06a1",
-      "cursoId": "xk7pqr"
-    },
-    {
       "id": "c17e",
       "alumnoId": "7313",
-      "cursoId": "hj78ty"
+      "cursoId": "hj78ty",
+      "alumno": {
+        "id": "7313",
+        "firstName": "María",
+        "lastName": "Truffello",
+        "mail": "maria.truffello@mail.cl"
+      },
+      "curso": {
+        "id": "68ed",
+        "nombre": "Filosofía ",
+        "modalidad": "Vespertino",
+        "profesor": "Giovanni Longo"
+      },
+      "alumnoNombre": "María Truffello",
+      "cursoNombre": "Filosofía "
     },
     {
       "id": "88d0",
@@ -136,24 +139,61 @@
       "cursoId": "vl12ef"
     },
     {
-      "id": "1a8c",
-      "alumnoId": "bac5",
-      "cursoId": "xk7pqr"
-    },
-    {
-      "id": "c13b",
-      "alumnoId": "3254",
-      "cursoId": "zt45uo"
-    },
-    {
-      "id": "5f05",
+      "id": "78e0",
       "alumnoId": "4937",
-      "cursoId": "72ea"
+      "cursoId": "zt45uo",
+      "alumno": {
+        "id": "c215",
+        "firstName": "Sukha",
+        "lastName": "Maria",
+        "mail": "sukha@maria.cl"
+      },
+      "curso": {
+        "id": "68ed",
+        "nombre": "Filosofía ",
+        "modalidad": "Vespertino",
+        "profesor": "Giovanni Longo"
+      },
+      "alumnoNombre": "Sukha Maria",
+      "cursoNombre": "Filosofía "
     },
     {
-      "id": "8b9e",
-      "alumnoId": "06a1",
-      "cursoId": "zt45uo"
+      "id": "3bc6",
+      "alumnoId": "5f8c",
+      "cursoId": "72ea",
+      "alumno": {
+        "id": "5f8c",
+        "firstName": "Bengi",
+        "lastName": "Contrufa",
+        "mail": "benja@mino.cl"
+      },
+      "curso": {
+        "id": "68ed",
+        "nombre": "Filosofía ",
+        "modalidad": "Vespertino",
+        "profesor": "Giovanni Longo"
+      },
+      "alumnoNombre": "Bengi Contrufa",
+      "cursoNombre": "Filosofía "
+    },
+    {
+      "id": "36e5",
+      "alumnoId": "8cc6",
+      "cursoId": "68ed",
+      "alumno": {
+        "id": "06a1",
+        "firstName": "Fran",
+        "lastName": "Contardo",
+        "mail": "fran.contardo@example.es"
+      },
+      "curso": {
+        "id": "68ed",
+        "nombre": "Filosofía ",
+        "modalidad": "Vespertino",
+        "profesor": "Giovanni Longo"
+      },
+      "alumnoNombre": "Fran Contardo",
+      "cursoNombre": "Filosofía "
     }
   ]
 }
