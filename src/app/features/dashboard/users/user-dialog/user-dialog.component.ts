@@ -11,8 +11,8 @@ interface UserDialogData {
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
-  styles: ``,
 })
+
 export class UserDialogComponent {
   userForm: FormGroup;
 
@@ -24,11 +24,11 @@ export class UserDialogComponent {
     this.userForm = this.formBuilder.group({
       firstName: [
         data?.editingUser?.firstName || '',
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z]*$/)],
+        [Validators.required, Validators.minLength(3)],
       ],
       lastName: [
         data?.editingUser?.lastName || '',
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z]*$/)],
+        [Validators.required, Validators.minLength(3)],
       ],
       email: [
         data?.editingUser?.email || '',
@@ -36,32 +36,17 @@ export class UserDialogComponent {
       ],
       role: [
         data?.editingUser?.role || '',
-        Validators.required,
-      ],
-      password: [
-        data?.editingUser ? '' : '',
-        Validators.required,
+        [Validators.required],
       ],
     });
-
-    if (this.isEditing) {
-      this.userForm.get('password')?.clearValidators();
-      this.userForm.get('password')?.updateValueAndValidity();
-    }
-  }
-
-  private get isEditing() {
-    return !!this.data?.editingUser;
   }
 
   onSave(): void {
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-    } else {
+    if (this.userForm.valid) {
       this.matDialogRef.close({
         ...this.userForm.value,
-        id: this.isEditing ? this.data!.editingUser!.id : generateRandomString(4),
-        createdAt: this.isEditing ? this.data!.editingUser!.createdAt : new Date(),
+        id: this.data?.editingUser?.id || generateRandomString(8),
+        createdAt: this.data?.editingUser?.createdAt || new Date(),
       });
     }
   }

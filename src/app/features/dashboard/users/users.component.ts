@@ -1,107 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { UsersActions } from './store/users.actions';
+import { selectAllUsers, selectIsLoading } from './store/users.selectors';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 import { User } from './models';
-import { UsersService } from '../../../core/services/users.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'createdAt', 'actions'];
   dataSource: User[] = [];
-
   isLoading = false;
 
-  constructor(
-    private matDialog: MatDialog,
-    private usersService: UsersService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private store: Store, private matDialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.loadUsers();
-  }
-
-  loadUsers(): void {
-    this.isLoading = true;
-    this.usersService.getUsers().subscribe({
-      next: (users) => {
-        this.dataSource = users;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
+    this.store.dispatch(UsersActions.loadUsers());
+    this.store.select(selectAllUsers).subscribe((users) => {
+      this.dataSource = users;
     });
-  }
-
-  onDelete(id: string): void {
-    if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
-      this.isLoading = true;
-      this.usersService.removeUserById(id).subscribe({
-        next: () => {
-          this.dataSource = this.dataSource.filter((user) => user.id !== id);
-        },
-        error: (err) => {
-          console.error('Error eliminando usuario:', err);
-          this.isLoading = false;
-        },
-        complete: () => {
-          this.isLoading = false;
-        },
-      });
-    }
-  }
-  
-
-  goToDetail(id: string): void {
-    this.router.navigate([id, 'detail'], {
-      relativeTo: this.activatedRoute,
+    this.store.select(selectIsLoading).subscribe((loading) => {
+      this.isLoading = loading;
     });
   }
 
   openModal(editingUser?: User): void {
     this.matDialog
       .open(UserDialogComponent, {
-        data: {
-          editingUser,
-        },
+        data: { editingUser },
       })
       .afterClosed()
-      .subscribe({
-        next: (result) => {
-          if (!!result) {
-            if (editingUser) {
-              this.handleUpdate(editingUser.id, result);
-            } else {
-              this.usersService
-                .createUser(result)
-                .subscribe({ next: () => this.loadUsers() });
-            }
+      .subscribe((result) => {
+        if (result) {
+          if (editingUser) {
+            this.store.dispatch(
+              UsersActions.editUser({ user: { ...editingUser, ...result } })
+            );
+          } else {
+            this.store.dispatch(UsersActions.createUser({ user: result }));
           }
-        },
+        }
       });
   }
 
-  handleUpdate(id: string, update: User): void {
-    this.isLoading = true;
-    this.usersService.updateUserById(id, update).subscribe({
-      next: (users) => {
-        this.dataSource = users;
-      },
-      error: (err) => {
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
+  openDetail(user: User): void {
+    this.matDialog.open(UserDetailComponent, {
+      data: { user },
     });
+  }
+
+  onDelete(id: string): void {
+    if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
+      this.store.dispatch(UsersActions.deleteUser({ id }));
+    }
   }
 }

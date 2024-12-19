@@ -96,8 +96,16 @@
     },
     {
       "id": "3bc6",
-      "alumnoId": null,
-      "cursoId": "72ea"
+      "alumnoId": "c215",
+      "cursoId": "72ea",
+      "curso": {
+        "id": "72ea",
+        "nombre": "Javascript",
+        "modalidad": "Vespertino",
+        "profesor": "Pato Pérez"
+      },
+      "alumnoNombre": " ",
+      "cursoNombre": "Javascript"
     },
     {
       "id": "36e5",
