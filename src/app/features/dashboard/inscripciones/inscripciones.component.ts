@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 import { InscripcionesActions } from './store/inscripciones.actions';
 import {
@@ -11,6 +11,7 @@ import {
   selectCursosOptions,
 } from './store/inscripciones.selectors';
 import { InscripcionesDialogComponent } from './inscripciones-dialog/inscripciones-dialog.component';
+import { InscripcionesDetailComponent } from './inscripciones-detail/inscripciones-detail.component';
 import { Inscripcion } from './models/';
 
 @Component({
@@ -43,26 +44,50 @@ export class InscripcionesComponent implements OnInit {
     });
   }
 
+  openDetail(inscripcion: any): void {
+    this.dialog.open(InscripcionesDetailComponent, {
+      width: '400px',
+      data: {
+        inscripcion,
+        alumnoNombre: inscripcion.alumnoNombre,
+        cursoNombre: inscripcion.cursoNombre,
+      },
+    });
+  }
+
   openDialog(inscripcion?: Inscripcion): void {
     const dialogRef = this.dialog.open(InscripcionesDialogComponent, {
       width: '400px',
       data: inscripcion || null,
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (inscripcion) {
+          // Editar inscripción existente
           this.store.dispatch(
             InscripcionesActions.editInscripcion({
               inscripcion: { ...inscripcion, ...result },
             })
           );
         } else {
-          this.store.dispatch(InscripcionesActions.createInscripcion(result));
+          // Crear nueva inscripción con fecha
+          const newInscripcion = {
+            ...result,
+            createdAt: new Date().toISOString(), // Generar la fecha actual
+          };
+          this.store.dispatch(
+            InscripcionesActions.createInscripcion({
+              alumnoId: newInscripcion.alumnoId,
+              cursoId: newInscripcion.cursoId,
+            })
+          );
+          
         }
       }
     });
   }
+  
 
   deleteInscripcion(id: string): void {
     if (confirm('¿Estás seguro de eliminar esta inscripción?')) {

@@ -1,14 +1,16 @@
-<h1 mat-dialog-title>Detalle del Usuario</h1>
-<mat-divider></mat-divider>
+<h2 mat-dialog-title appTitles>Detalle del Usuario</h2>
+<mat-divider class="pb-3"></mat-divider>
 <mat-dialog-content>
   <p><strong>ID:</strong> {{ data.user.id }}</p>
   <p><strong>Nombre:</strong> {{ data.user.firstName }}</p>
   <p><strong>Apellido:</strong> {{ data.user.lastName }}</p>
-  <p><strong>Correo:</strong> {{ data.user.email }}</p>
-  <p><strong>Rol:</strong> {{ data.user.role }}</p>
-  <p><strong>Creación:</strong> {{ data.user.createdAt | date }}</p>
+  <p><strong>Correo: </strong> 
+    <a href="mailto:{{ data.user.email }}" target="_blank">{{ data.user.email }}</a>
+  </p>
+    <p><strong>Rol:</strong> {{ data.user.role }}</p>
+  <p><strong>Creación:</strong> {{ data.user.createdAt | date:'dd/MM/yyyy' }}</p>
 </mat-dialog-content>
-<mat-divider></mat-divider>
-<mat-dialog-actions>
+<mat-divider class="mt-4 pb-3"></mat-divider>
+<mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cerrar</button>
 </mat-dialog-actions>

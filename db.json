@@ -5,7 +5,7 @@
       "firstName": "Administrador",
       "lastName": "Alumnify",
       "email": "admin@alumnify.com",
-      "role": "Administrador",
+      "role": "Administrator",
       "password": "123456",
       "createdAt": "2024-11-05T02:04:15.131Z",
       "token": "hrQzA6Bvkh1qIlVsR8kD"
@@ -15,7 +15,7 @@
       "firstName": "Usuario",
       "lastName": "Alumnify",
       "email": "usuario@alumnify.com",
-      "role": "Usuario",
+      "role": "User",
       "password": "123456",
       "createdAt": "2024-11-05T17:19:06.853Z",
       "token": "uks6apeAu4A9p0gLVgnN"
@@ -25,7 +25,7 @@
       "firstName": "Dani",
       "lastName": "Contardo",
       "email": "danicontardo@gmail.com",
-      "role": "Administrador",
+      "role": "Administrator",
       "password": "123456",
       "createdAt": "2024-12-02T20:36:33.051Z",
       "token": "2mwnko94FzUY5ngMeEER"
@@ -33,28 +33,25 @@
   ],
   "alumnos": [
     {
-      "id": "4937",
-      "firstName": "Edda",
-      "lastName": "Castel",
-      "mail": "edda.castel@mail.it"
-    },
-    {
       "id": "7313",
       "firstName": "María",
       "lastName": "Truffello",
-      "mail": "maria.truffello@mail.cl"
+      "mail": "maria.truffello@mail.cl",
+      "createdAt": "2024-10-22T00:00:00"
     },
     {
       "id": "c215",
       "firstName": "Sukha",
       "lastName": "Maria",
-      "mail": "sukha@maria.cl"
+      "mail": "sukha@maria.cl",
+      "createdAt": "2024-09-13T00:00:00"
     },
     {
       "id": "8cc6",
       "firstName": "Victor",
       "lastName": "Jara",
-      "mail": "jazzeme@mail.cl"
+      "mail": "jazzeme@mail.cl",
+      "createdAt": "2024-10-03T00:00:00"
     }
   ],
   "cursos": [
@@ -62,55 +59,49 @@
       "id": "hj78ty",
       "nombre": "Inteligencia Artificial",
       "modalidad": "Diurno",
-      "profesor": "María Rodríguez"
+      "profesor": "María Rodríguez",
+      "createdAt": "2024-09-20T00:00:00"
     },
     {
       "id": "zt45uo",
       "nombre": "Diseño de Interfaces",
       "modalidad": "Vespertino",
-      "profesor": "Pedro Martínez"
+      "profesor": "Pedro Martínez",
+      "createdAt": "2024-09-14T00:00:00"
     },
     {
       "id": "72ea",
       "nombre": "Javascript",
       "modalidad": "Vespertino",
-      "profesor": "Pato Pérez"
+      "profesor": "Pato Pérez",
+      "createdAt": "2024-09-19T00:00:00"
     },
     {
       "id": "68ed",
       "nombre": "Filosofía",
       "modalidad": "Vespertino",
-      "profesor": "Giovanni Longo"
+      "profesor": "Giovanni Longo",
+      "createdAt": "2024-09-10T00:00:00"
     }
   ],
   "inscripciones": [
     {
-      "id": "c17e",
-      "alumnoId": "7313",
-      "cursoId": "hj78ty"
-    },
-    {
-      "id": "78e0",
-      "alumnoId": "4937",
-      "cursoId": "zt45uo"
-    },
-    {
       "id": "3bc6",
       "alumnoId": "c215",
       "cursoId": "72ea",
-      "curso": {
-        "id": "72ea",
-        "nombre": "Javascript",
-        "modalidad": "Vespertino",
-        "profesor": "Pato Pérez"
-      },
-      "alumnoNombre": " ",
-      "cursoNombre": "Javascript"
+      "createdAt": "2024-10-05T00:00:00"
     },
     {
       "id": "36e5",
       "alumnoId": "8cc6",
-      "cursoId": "68ed"
+      "cursoId": "68ed",
+      "createdAt": "2024-10-12T00:00:00"
+    },
+    {
+      "id": "526f",
+      "alumnoId": null,
+      "cursoId": "zt45uo",
+      "createdAt": "2024-12-19T19:56:35.176Z"
     }
   ]
 }

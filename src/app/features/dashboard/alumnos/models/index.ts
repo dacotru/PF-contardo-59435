@@ -3,4 +3,5 @@ export interface Alumno {
   firstName: string;
   lastName: string;
   mail: string;
+  createdAt?: string;
 }

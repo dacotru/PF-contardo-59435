@@ -1,0 +1,13 @@
+<h2 mat-dialog-title appTitles>Detalle del Curso</h2>
+<mat-divider class="pb-3"></mat-divider>
+<mat-dialog-content>
+  <p><strong>ID:</strong> {{ data.curso.id }}</p>
+  <p><strong>Nombre:</strong> {{ data.curso.nombre }}</p>
+  <p><strong>Modalidad:</strong> {{ data.curso.modalidad }}</p>
+  <p><strong>Profesor:</strong> {{ data.curso.profesor }}</p>
+  <p><strong>Fecha de Creación:</strong> {{ data.curso.createdAt | date:'dd/MM/yyyy' }}</p>
+</mat-dialog-content>
+<mat-divider class="mt-4 pb-3"></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

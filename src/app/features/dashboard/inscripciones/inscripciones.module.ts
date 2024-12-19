@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { InscripcionesComponent } from './inscripciones.component';
 import { InscripcionesDialogComponent } from './inscripciones-dialog/inscripciones-dialog.component';
+import { InscripcionesDetailComponent } from './inscripciones-detail/inscripciones-detail.component';
 import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { inscripcionesReducer } from './store/inscripciones.reducer';
@@ -14,6 +15,7 @@ import { InscripcionesEffects } from './store/inscripciones.effects';
   declarations: [
     InscripcionesComponent,
     InscripcionesDialogComponent,
+    InscripcionesDetailComponent,
   ],
   imports: [
     CommonModule,

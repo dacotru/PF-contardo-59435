@@ -5,9 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { CursosActions } from './store/cursos.actions';
-import { selectAllCursos } from './store/cursos.selectors';
+import { selectAllCursos, selectIsLoadingCursos } from './store/cursos.selectors';
 import { Curso } from './models/';
 import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
+import { CursosDetailComponent } from './cursos-detail/cursos-detail.component';
 
 @Component({
   selector: 'app-cursos',
@@ -17,16 +18,15 @@ import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
 export class CursosComponent implements OnInit {
   dataSource = new MatTableDataSource<Curso>([]);
   displayedColumns: string[] = ['id', 'nombre', 'modalidad', 'profesor', 'acciones'];
-
-  cursos$: Observable<Curso[]>;
+  isLoading$: Observable<boolean>;
 
   constructor(private store: Store, private dialog: MatDialog) {
-    this.cursos$ = this.store.select(selectAllCursos);
+    this.isLoading$ = this.store.select(selectIsLoadingCursos);
   }
 
   ngOnInit(): void {
     this.store.dispatch(CursosActions.loadCursos());
-    this.cursos$.subscribe((cursos) => {
+    this.store.select(selectAllCursos).subscribe((cursos) => {
       this.dataSource.data = cursos;
     });
   }
@@ -36,15 +36,29 @@ export class CursosComponent implements OnInit {
       width: '400px',
       data: curso || null,
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (curso) {
-          this.store.dispatch(CursosActions.editCurso({ curso: { ...curso, ...result } }));
+          this.store.dispatch(
+            CursosActions.editCurso({ curso: { ...curso, ...result } })
+          );
         } else {
-          this.store.dispatch(CursosActions.createCurso({ curso: result }));
+          const newCurso = {
+            ...result,
+            createdAt: new Date().toISOString(),
+          };
+          this.store.dispatch(CursosActions.createCurso({ curso: newCurso }));
         }
       }
+    });
+  }
+  
+
+  openDetail(curso: Curso): void {
+    this.dialog.open(CursosDetailComponent, {
+      width: '400px',
+      data: { curso },
     });
   }
 

@@ -1,0 +1,12 @@
+<h2 mat-dialog-title appTitles>Detalle del Alumno</h2>
+<mat-divider class="pb-3"></mat-divider>
+<mat-dialog-content>
+  <p><strong>ID:</strong> {{ data.alumno.id }}</p>
+  <p><strong>Nombre Completo:</strong> {{ data.alumno.firstName }} {{ data.alumno.lastName }}</p>
+  <p><strong>Correo: </strong> <a href="mailto:{{ data.alumno.mail }}" target="_blank"> {{ data.alumno.mail }}</a></p>
+  <p><strong>Fecha de Creación:</strong> {{ data.alumno.createdAt | date:'dd/MM/yyyy' }}</p>
+</mat-dialog-content>
+<mat-divider class="mt-4 pb-3"></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

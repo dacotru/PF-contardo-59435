@@ -1,0 +1,21 @@
+<h2 mat-dialog-title appTitles>Detalle de la Inscripción</h2>
+<mat-divider class="pb-3"></mat-divider>
+<mat-dialog-content>
+  <p><strong>ID:</strong> {{ data.inscripcion.id }}</p>
+  <ng-container *ngIf="alumnoData$ | async as alumnoData">
+    <p><strong>Alumno:</strong> {{ alumnoData.nombreCompleto }}</p>
+    <p><strong>Correo del Alumno: </strong> 
+      <a href="mailto:{{ alumnoData.mail }}" target="_blank">{{ alumnoData.mail }}</a>
+    </p>
+  </ng-container>
+  <ng-container *ngIf="cursoData$ | async as cursoData">
+    <p><strong>Curso:</strong> {{ cursoData.nombre }}</p>
+    <p><strong>Profesor:</strong> {{ cursoData.profesor }}</p>
+    <p><strong>Modalidad:</strong> {{ cursoData.modalidad }}</p>
+  </ng-container>
+  <p><strong>Fecha de Creación:</strong> {{ data.inscripcion.createdAt | date:'dd/MM/yyyy' }}</p>
+</mat-dialog-content>
+<mat-divider class="mt-4 pb-3"></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

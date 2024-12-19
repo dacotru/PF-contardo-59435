@@ -1,9 +1,7 @@
 <h2 mat-dialog-title appTitles>{{ data ? 'Editar Curso' : 'Nuevo Curso' }}</h2>
 <mat-divider class="pb-3"></mat-divider>
-
 <mat-dialog-content>
   <form [formGroup]="cursoForm">
-    <!-- Campo Nombre -->
     <mat-form-field class="w-100 mb-3">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre" placeholder="Ingrese el nombre del curso" />
@@ -11,8 +9,6 @@
         El nombre es obligatorio.
       </mat-error>
     </mat-form-field>
-
-    <!-- Campo Modalidad -->
     <mat-form-field class="w-100 mb-3">
       <mat-label>Modalidad</mat-label>
       <mat-select formControlName="modalidad">
@@ -23,8 +19,6 @@
         Seleccionar la modalidad es obligatorio.
       </mat-error>
     </mat-form-field>
-
-    <!-- Campo Profesor -->
     <mat-form-field class="w-100 mb-3">
       <mat-label>Profesor</mat-label>
       <input matInput formControlName="profesor" placeholder="Ingrese el nombre del profesor" />
@@ -34,9 +28,8 @@
     </mat-form-field>
   </form>
 </mat-dialog-content>
-
 <mat-dialog-actions align="end">
-  <button mat-stroked-button color="warn" (click)="onCancel()">Cancelar</button>
+  <button mat-button color="warn" (click)="onCancel()">Cancelar</button>
   <button mat-flat-button color="primary" (click)="onSave()" [disabled]="cursoForm.invalid">
     Guardar
   </button>

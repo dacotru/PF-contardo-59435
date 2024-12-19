@@ -13,7 +13,7 @@ import { User } from './models';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'role', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'role', 'actions'];
   dataSource: User[] = [];
   isLoading = false;
 

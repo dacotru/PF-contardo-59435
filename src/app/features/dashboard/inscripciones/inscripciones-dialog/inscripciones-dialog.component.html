@@ -1,6 +1,5 @@
 <h2 mat-dialog-title appTitles>{{ data ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h2>
 <mat-divider class="pb-3"></mat-divider>
-
 <mat-dialog-content>
   <form [formGroup]="inscripcionForm">
     <!-- Selección de Alumno -->
@@ -30,9 +29,9 @@
     </mat-form-field>
   </form>
 </mat-dialog-content>
-
+<mat-divider class="pb-3"></mat-divider>
 <mat-dialog-actions align="end">
-  <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onCancel()">Cancelar</button>
   <button mat-flat-button color="primary" (click)="onSave()" [disabled]="inscripcionForm.invalid">
     Guardar
   </button>

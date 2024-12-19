@@ -3,4 +3,5 @@ export interface Curso {
   nombre: string;
   modalidad: string;
   profesor: string;
+  createdAt: Date;
 }

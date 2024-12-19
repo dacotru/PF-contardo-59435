@@ -40,6 +40,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+a {
+  color: darkcyan!important;
+}
+
 .mat-divider.aqua {
   border-top-color: aquamarine!important;;
 }
@@ -58,4 +62,13 @@ body {
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--invalid .mdc-floating-label {
   color: #3cafaa !important;
+}
+
+.mat-mdc-unelevated-button:not(:disabled) {
+  color: rgb(15, 31, 63)!important;
+  background-color: aquamarine!important;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: rgb(15, 31, 63)!important;
 }

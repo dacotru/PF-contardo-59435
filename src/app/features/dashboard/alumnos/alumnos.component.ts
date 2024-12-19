@@ -8,6 +8,7 @@ import { AlumnosActions } from './store/alumnos.actions';
 import { selectAllAlumnos, selectIsLoadingAlumnos } from './store/alumnos.selectors';
 import { Alumno } from './models/';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
+import { AlumnosDetailComponent } from './alumnos-detail/alumnos-detail.component';
 
 @Component({
   selector: 'app-alumnos',
@@ -35,15 +36,28 @@ export class AlumnosComponent implements OnInit {
       width: '400px',
       data: alumno || null,
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (alumno) {
           this.store.dispatch(AlumnosActions.editAlumno({ alumno: { ...alumno, ...result } }));
         } else {
-          this.store.dispatch(AlumnosActions.createAlumno({ alumno: result }));
+          // Generar el campo createdAt al crear un nuevo alumno
+          const newAlumno = {
+            ...result,
+            createdAt: new Date().toISOString(), // Genera la fecha de creación actual
+          };
+          this.store.dispatch(AlumnosActions.createAlumno({ alumno: newAlumno }));
         }
       }
+    });
+  }
+  
+
+  openDetail(alumno: Alumno): void {
+    this.dialog.open(AlumnosDetailComponent, {
+      width: '400px',
+      data: { alumno },
     });
   }
 

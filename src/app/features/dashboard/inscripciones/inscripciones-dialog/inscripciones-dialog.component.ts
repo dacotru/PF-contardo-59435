@@ -39,14 +39,21 @@ export class InscripcionesDialogComponent implements OnInit {
 
   onSave(): void {
     if (this.inscripcionForm.valid) {
-      this.dialogRef.close({
-        id: this.data?.id,
+      const newInscripcion = {
+        id: this.data?.id || this.generateId(),
         ...this.inscripcionForm.value,
-      });
+        createdAt: this.data?.createdAt || new Date().toISOString(), // Asignar fecha si es nueva
+      };
+
+      this.dialogRef.close(newInscripcion);
     }
   }
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  private generateId(): string {
+    return Math.random().toString(36).substring(2, 10); // Generador simple de ID
   }
 }
