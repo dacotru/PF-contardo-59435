@@ -52,6 +52,13 @@
       "lastName": "Jara",
       "mail": "jazzeme@mail.cl",
       "createdAt": "2024-10-03T00:00:00"
+    },
+    {
+      "id": "2070",
+      "firstName": "Edda",
+      "lastName": "Castel",
+      "mail": "edda@castel.cl",
+      "createdAt": "2024-12-20T02:18:47.105Z"
     }
   ],
   "cursos": [
@@ -99,9 +106,24 @@
     },
     {
       "id": "526f",
-      "alumnoId": null,
+      "alumnoId": "7313",
       "cursoId": "zt45uo",
-      "createdAt": "2024-12-19T19:56:35.176Z"
+      "createdAt": "2024-12-19T19:56:35.176Z",
+      "curso": {
+        "id": "zt45uo",
+        "nombre": "Diseño de Interfaces",
+        "modalidad": "Vespertino",
+        "profesor": "Pedro Martínez",
+        "createdAt": "2024-09-14T00:00:00"
+      },
+      "alumnoNombre": " ",
+      "cursoNombre": "Diseño de Interfaces"
+    },
+    {
+      "id": "32f0",
+      "alumnoId": "2070",
+      "cursoId": "zt45uo",
+      "createdAt": "2024-12-20T02:20:11.031Z"
     }
   ]
 }

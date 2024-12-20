@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { UsersActions } from './store/users.actions';
 import { selectAllUsers, selectIsLoading } from './store/users.selectors';
+import { selectAutheticatedUser } from '../../../store/selectors/auth.selector';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { User } from './models';
@@ -16,8 +20,13 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'actions'];
   dataSource: User[] = [];
   isLoading = false;
+  isAdmin$: Observable<boolean>;
 
-  constructor(private store: Store, private matDialog: MatDialog) {}
+  constructor(private store: Store, private matDialog: MatDialog) {
+    this.isAdmin$ = this.store.select(selectAutheticatedUser).pipe(
+      map((user) => user?.role === 'Administrator')
+    );
+  }
 
   ngOnInit(): void {
     this.store.dispatch(UsersActions.loadUsers());

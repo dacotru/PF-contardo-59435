@@ -3,12 +3,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CursosActions } from './store/cursos.actions';
 import { selectAllCursos, selectIsLoadingCursos } from './store/cursos.selectors';
-import { Curso } from './models/';
+import { Curso } from './models';
 import { CursosDialogComponent } from './cursos-dialog/cursos-dialog.component';
 import { CursosDetailComponent } from './cursos-detail/cursos-detail.component';
+import { selectAutheticatedUser } from '../../../store/selectors/auth.selector';
 
 @Component({
   selector: 'app-cursos',
@@ -19,9 +21,13 @@ export class CursosComponent implements OnInit {
   dataSource = new MatTableDataSource<Curso>([]);
   displayedColumns: string[] = ['id', 'nombre', 'modalidad', 'profesor', 'acciones'];
   isLoading$: Observable<boolean>;
+  isAdmin$: Observable<boolean>;
 
   constructor(private store: Store, private dialog: MatDialog) {
     this.isLoading$ = this.store.select(selectIsLoadingCursos);
+    this.isAdmin$ = this.store.select(selectAutheticatedUser).pipe(
+      map((user) => user?.role === 'Administrator') // Compara con "Administrator"
+    );
   }
 
   ngOnInit(): void {
@@ -36,7 +42,7 @@ export class CursosComponent implements OnInit {
       width: '400px',
       data: curso || null,
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (curso) {
@@ -53,7 +59,6 @@ export class CursosComponent implements OnInit {
       }
     });
   }
-  
 
   openDetail(curso: Curso): void {
     this.dialog.open(CursosDetailComponent, {

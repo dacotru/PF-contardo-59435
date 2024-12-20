@@ -24,7 +24,6 @@ export class UsersService {
   createUser(data: Omit<User, 'id'>): Observable<User> {
     return this.httpClient.post<User>(`${this.baseURL}/users`, {
       ...data,
-      role: 'Administrador',
       password: generateRandomString(6),
       token: generateRandomString(20),
       createdAt: new Date().toISOString(),

@@ -72,7 +72,7 @@ export class AuthService {
       .pipe(
         map((users) => {
           const user = this.handleAuthentication(users);
-          return !!user; // Devuelve true si hay un usuario autenticado
+          return !!user;
         }),
         catchError((error) => {
           console.error('Error verificando token:', error);

@@ -12,7 +12,6 @@ interface UserDialogData {
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
 })
-
 export class UserDialogComponent {
   userForm: FormGroup;
 
@@ -35,7 +34,7 @@ export class UserDialogComponent {
         [Validators.required, Validators.email],
       ],
       role: [
-        data?.editingUser?.role || '',
+        data?.editingUser?.role || 'User', // Valor predeterminado como "User"
         [Validators.required],
       ],
     });
@@ -43,8 +42,11 @@ export class UserDialogComponent {
 
   onSave(): void {
     if (this.userForm.valid) {
+      const roleValue = this.userForm.value.role;
+
       this.matDialogRef.close({
         ...this.userForm.value,
+        role: roleValue === 'Administrador' ? 'Administrator' : roleValue,
         id: this.data?.editingUser?.id || generateRandomString(8),
         createdAt: this.data?.editingUser?.createdAt || new Date(),
       });
